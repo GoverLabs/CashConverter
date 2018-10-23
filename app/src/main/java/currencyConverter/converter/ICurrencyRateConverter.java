@@ -1,9 +1,9 @@
-package currencyRatesProvider.converter;
+package currencyConverter.converter;
 
 import java.text.ParseException;
 
-import currencyRatesProvider.dto.CurrencyRateDTO;
-import currencyRatesProvider.model.CurrencyRateModel;
+import currencyConverter.dto.CurrencyRateDTO;
+import currencyConverter.model.CurrencyRateModel;
 
 public interface ICurrencyRateConverter {
 

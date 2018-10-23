@@ -1,28 +1,18 @@
-package currencyRatesProvider.model;
+package currencyConverter.model;
 
-import java.util.Date;
 import java.util.List;
 
 public class CurrencyRateModel {
 
-    private Date date;
-    private CurrencyCode baseCurrency;
+    private long date;
     private List<CurrencyModel> exchangeRate;
 
-    public Date getDate() {
+    public long getDate() {
         return this.date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(long date) {
         this.date = date;
-    }
-
-    public CurrencyCode getBaseCurrency() {
-        return this.baseCurrency;
-    }
-
-    public void setBaseCurrency(CurrencyCode baseCurrency) {
-        this.baseCurrency = baseCurrency;
     }
 
     public List<CurrencyModel> getExchangeRate() {

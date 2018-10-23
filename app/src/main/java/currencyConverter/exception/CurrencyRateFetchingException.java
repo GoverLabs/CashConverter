@@ -1,4 +1,4 @@
-package currencyRatesProvider.exception;
+package currencyConverter.exception;
 
 public class CurrencyRateFetchingException extends Exception {
 

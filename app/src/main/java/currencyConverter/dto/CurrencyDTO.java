@@ -1,4 +1,4 @@
-package currencyRatesProvider.dto;
+package currencyConverter.dto;
 
 public class CurrencyDTO {
 
