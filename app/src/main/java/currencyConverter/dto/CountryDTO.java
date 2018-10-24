@@ -1,20 +1,9 @@
-package currencyConverter.model;
+package currencyConverter.dto;
 
-public class CountryModel {
+public class CountryDTO {
 
-	private long date;
 	private String currentCountry;
 	private String homeCountry;
-
-	public long getDate() {
-
-		return this.date;
-	}
-
-	public void setDate(long date) {
-
-		this.date = date;
-	}
 
 	public String getCurrentCountry() {
 

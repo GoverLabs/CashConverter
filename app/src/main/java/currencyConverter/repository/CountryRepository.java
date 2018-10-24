@@ -1,6 +1,6 @@
 package currencyConverter.repository;
 
-//import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class CountryRepository implements ICountryRepository {
 				if (!file.exists()) {
 
 					file.createNewFile();
-//					new ObjectMapper().writeValue(file, model);
+					new ObjectMapper().writeValue(file, model);
 				}
 				else {
 					throw new CountryFethchingException();
@@ -46,15 +46,13 @@ public class CountryRepository implements ICountryRepository {
 		CountryModel model = null;
 
 		File file = new File(FILE_NAME);
-
 		if (file.exists()) {
 
-//			try {
-//				model = new ObjectMapper().readValue(file, CountryModel.class);
-//
-//			} catch (IOException e) {
-//				//Just ignore it
-//			}
+			try {
+				model = new ObjectMapper().readValue(file, CountryModel.class);
+			} catch (IOException e) {
+				//Just ignore it
+			}
 		}
 
 		return model;
