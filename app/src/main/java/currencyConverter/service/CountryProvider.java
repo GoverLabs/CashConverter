@@ -15,7 +15,7 @@ import android.telephony.TelephonyManager;
 
 import currencyConverter.exception.CountryFethchingException;
 
-public class СountryProvider implements ICountryProvider {
+public class CountryProvider implements ICountryProvider {
 
     @Override
     public String getCurrentCountry(Context context) throws CountryFethchingException {
@@ -56,11 +56,12 @@ public class СountryProvider implements ICountryProvider {
 
             if (location != null) {
                 final Geocoder gcd = new Geocoder(context, Locale.getDefault());
-                List<Address> addresses;
+                final int maximumResultsCount = 1;
 
+                List<Address> addresses;
                 try {
                     addresses = gcd.getFromLocation(location.getLatitude(),
-                            location.getLongitude(), 1);
+                            location.getLongitude(), maximumResultsCount);
 
                     if (addresses != null && !addresses.isEmpty()) {
                         String country = addresses.get(0).getCountryCode();
@@ -82,17 +83,12 @@ public class СountryProvider implements ICountryProvider {
         final TelephonyManager tm =
              (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 
-//        final String simCountry = tm.getSimCountryIso();
-//
-//        if (simCountry != null && simCountry.length() == 2) {
-//            return simCountry.toLowerCase(Locale.US);
-//        }
-
         if (tm.getPhoneType() != TelephonyManager.PHONE_TYPE_CDMA) {
 
             final String networkCountry = tm.getNetworkCountryIso();
 
             if (networkCountry != null && networkCountry.length() == 2) {
+
                 return networkCountry.toLowerCase(Locale.US);
             }
         }
