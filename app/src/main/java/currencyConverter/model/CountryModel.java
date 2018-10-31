@@ -1,17 +1,18 @@
 package currencyConverter.model;
 
+import java.util.Date;
+
 public class CountryModel {
 
-	private long date;
+	private Date date;
 	private String currentCountry;
-	private String homeCountry;
 
-	public long getDate() {
+	public Date getDate() {
 
 		return this.date;
 	}
 
-	public void setDate(long date) {
+	public void setDate(Date date) {
 
 		this.date = date;
 	}
@@ -24,15 +25,5 @@ public class CountryModel {
 	public void setCurrentCountry(String currentCountry) {
 
 		this.currentCountry = currentCountry;
-	}
-
-	public String getHomeCountry() {
-
-		return homeCountry;
-	}
-
-	public void setHomeCountry(String homeCountry) {
-
-		this.homeCountry = homeCountry;
 	}
 }

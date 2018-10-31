@@ -1,5 +1,7 @@
 package currencyConverter.service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -14,28 +16,73 @@ import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 
 import currencyConverter.exception.CountryFethchingException;
+import currencyConverter.model.CountryModel;
+import currencyConverter.repository.CountryRepository;
+import currencyConverter.repository.ICountryRepository;
 
 public class CountryProvider implements ICountryProvider {
+
+	private static final Integer SAVED_RATES_TTL_DAYS = 3;
+
+    private ICountryRepository countryRepository;
+
+    private String currentCountry;
+    private String nativeCountry;
+
+    CountryProvider() {
+    	this.countryRepository = new CountryRepository();
+	}
 
     @Override
     public String getCurrentCountry(Context context) throws CountryFethchingException {
 
-        String countryCode = getCountryByGeolocation(context);
+		if(!this.isCacheAvailable()) {
+			CountryModel countryModel = this.countryRepository.load();
+			if(countryModel == null) {
+				countryModel = fetchCurrentCountry(context);
+				this.countryRepository.create(countryModel);
+			} else if (!this.isCacheActual(countryModel)) {
+				countryModel = fetchCurrentCountry(context);
+				this.countryRepository.update(countryModel);
+			}
+			this.updateLocalCache(countryModel);
+		}
 
-        if(countryCode != null) {
-
-            return countryCode;
-        }
-        else {
-            countryCode = getCountryBySimCardInfo(context);
-        }
-
-        if(countryCode == null) {
-            throw new CountryFethchingException();
-        }
-
-        return null;
+		return currentCountry;
     }
+
+    private boolean isCacheAvailable() {
+    	return
+				this.currentCountry != null
+			&&	this.currentCountry != ""
+			&&	this.nativeCountry	!= null
+			&&	this.nativeCountry	!= "";
+	}
+
+	private boolean isCacheActual(CountryModel countryModel) {
+		Date lastUpdateDate = countryModel.getDate();
+		Calendar ttlCalendar = Calendar.getInstance();
+		ttlCalendar.add(Calendar.DAY_OF_YEAR, -SAVED_RATES_TTL_DAYS);
+		return lastUpdateDate.after(ttlCalendar.getTime());
+	}
+
+	private CountryModel fetchCurrentCountry(Context context) throws CountryFethchingException {
+		String countryCode = getCountryByGeolocation(context);
+
+		if(countryCode == null) {
+			countryCode = getCountryBySimCardInfo(context);
+		}
+
+		if(countryCode == null) {
+			throw new CountryFethchingException();
+		}
+
+		CountryModel countryModel = new CountryModel();
+		countryModel.setCurrentCountry(countryCode);
+		countryModel.setDate(new Date());
+
+		return countryModel;
+	}
 
     private String getCountryByGeolocation(Context context) throws CountryFethchingException {
 
@@ -94,4 +141,17 @@ public class CountryProvider implements ICountryProvider {
         }
         return null;
     }
+
+	public void setNativeCountry(String nativeCountry) {
+		this.nativeCountry = nativeCountry;
+	}
+
+	public String getNativeCountry() {
+    	return this.nativeCountry;
+	}
+
+	private void updateLocalCache(CountryModel countryModel) {
+		this.currentCountry = countryModel.getCurrentCountry();
+	}
+
 }
