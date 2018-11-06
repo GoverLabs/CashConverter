@@ -5,5 +5,5 @@ import currencyConverter.model.CurrencyCode;
 
 public interface ICurrencyConverter {
 
-    String convert(CurrencyCode from, CurrencyCode to, double value) throws CurrencyRateFetchingException;
+    Double convert(CurrencyCode from, CurrencyCode to, double value) throws CurrencyRateFetchingException;
 }

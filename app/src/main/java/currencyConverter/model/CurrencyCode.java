@@ -37,7 +37,9 @@ public enum CurrencyCode {
     private final String symbol;
 
     private static final List<String> europeanCountryList = Arrays
-            .asList("AUT", "BEL", "DEU", "GRC", "ITA", "LTU", "NLD", "IRL", "ESP", "CYP", "LVA", "LUX", "MLT", "PRT", "SVN", "SVK", "FIN", "FRA", "EST");
+            .asList("AUT", "BEL", "DEU", "GRC", "ITA", "LTU",
+                    "NLD", "IRL", "ESP", "CYP", "LVA", "LUX",
+                    "MLT", "PRT", "SVN", "SVK", "FIN", "FRA", "EST");
 
     CurrencyCode(String name, String code, String country, String countryCode, String symbol) {
         this.name = name;

@@ -3,9 +3,9 @@ package currencyConverter.converter;
 import java.text.ParseException;
 
 import currencyConverter.dto.CurrencyRateDTO;
-import currencyConverter.model.CurrencyRateModel;
+import currencyConverter.model.CurrencyRate;
 
 public interface ICurrencyRateConverter {
 
-    CurrencyRateModel convert(CurrencyRateDTO currencyRateDTO) throws ParseException;
+    CurrencyRate convert(CurrencyRateDTO currencyRateDTO) throws ParseException;
 }

@@ -2,37 +2,36 @@ package currencyConverter.converter;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import currencyConverter.dto.CurrencyDTO;
 import currencyConverter.dto.CurrencyRateDTO;
 import currencyConverter.model.CurrencyCode;
-import currencyConverter.model.CurrencyModel;
-import currencyConverter.model.CurrencyRateModel;
+import currencyConverter.model.Currency;
+import currencyConverter.model.CurrencyRate;
 
 public class CurrencyRateConverter implements ICurrencyRateConverter {
 
     @Override
-    public CurrencyRateModel convert(CurrencyRateDTO currencyRateDTO) throws ParseException {
-        CurrencyRateModel currencyRateModel = new CurrencyRateModel();
-        currencyRateModel.setDate(System.currentTimeMillis());
-        currencyRateModel.setExchangeRate(this.convertCurrencyModel(currencyRateDTO.getExchangeRate()));
-        return currencyRateModel;
+    public CurrencyRate convert(CurrencyRateDTO currencyRateDTO) throws ParseException {
+        CurrencyRate currencyRate = new CurrencyRate();
+        currencyRate.setDate(System.currentTimeMillis());
+        currencyRate.setExchangeRate(this.convertCurrencyModel(currencyRateDTO.getExchangeRate()));
+        return currencyRate;
     }
 
-    private List<CurrencyModel> convertCurrencyModel(List<CurrencyDTO> currencyDTOList) {
-        List<CurrencyModel> currencyModelList = new ArrayList<>();
+    private List<Currency> convertCurrencyModel(List<CurrencyDTO> currencyDTOList) {
+        List<Currency> currencyList = new ArrayList<>();
         for (CurrencyDTO currencyDTO : currencyDTOList) {
-            CurrencyModel currencyModel = new CurrencyModel();
+            Currency currency = new Currency();
             if (currencyDTO.getCurrency() != null) {
-                currencyModel.setCurrency(CurrencyCode.fromCode(currencyDTO.getCurrency()));
+                currency.setCurrency(CurrencyCode.fromCode(currencyDTO.getCurrency()));
             }
             if (currencyDTO.getPurchaseRateNB() != null) {
-                currencyModel.setRate(Double.parseDouble(currencyDTO.getPurchaseRateNB()));
+                currency.setRate(Double.parseDouble(currencyDTO.getPurchaseRateNB()));
             }
-            currencyModelList.add(currencyModel);
+            currencyList.add(currency);
         }
-        return currencyModelList;
+        return currencyList;
     }
 }

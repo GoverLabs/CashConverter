@@ -1,6 +1,6 @@
 package currencyConverter.model;
 
-public class CurrencyModel {
+public class Currency {
 
     private CurrencyCode currency;
     private Double rate;

@@ -6,14 +6,14 @@ import java.io.File;
 import java.io.IOException;
 
 import currencyConverter.exception.CurrencyRateFetchingException;
-import currencyConverter.model.CurrencyRateModel;
+import currencyConverter.model.CurrencyRate;
 
 public class CurrencyFileBasedRepository implements ICurrencyRateModelRepository {
 
-    private static final String FILE_NAME = "CurrencyRateModel.json";
+    private static final String FILE_NAME = "CurrencyRate.json";
 
     @Override
-    public CurrencyRateModel create(CurrencyRateModel model) throws CurrencyRateFetchingException {
+    public CurrencyRate create(CurrencyRate model) throws CurrencyRateFetchingException {
         try {
             if (model != null) {
                 File file = new File(FILE_NAME);
@@ -29,7 +29,7 @@ public class CurrencyFileBasedRepository implements ICurrencyRateModelRepository
     }
 
     @Override
-    public CurrencyRateModel update(CurrencyRateModel model) throws CurrencyRateFetchingException {
+    public CurrencyRate update(CurrencyRate model) throws CurrencyRateFetchingException {
         File file = new File(FILE_NAME);
         if (file.exists()) {
             file.delete();
@@ -38,17 +38,17 @@ public class CurrencyFileBasedRepository implements ICurrencyRateModelRepository
     }
 
     @Override
-    public CurrencyRateModel load() {
-        CurrencyRateModel currencyRateModel = null;
+    public CurrencyRate load() {
+        CurrencyRate currencyRate = null;
         File file = new File(FILE_NAME);
         if (file.exists()) {
             try {
-                currencyRateModel = new ObjectMapper().readValue(file, CurrencyRateModel.class);
+                currencyRate = new ObjectMapper().readValue(file, CurrencyRate.class);
             } catch (IOException e) {
                 //Just ignore it
             }
         }
-        return currencyRateModel;
+        return currencyRate;
     }
 
     @Override

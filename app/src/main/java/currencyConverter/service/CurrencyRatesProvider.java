@@ -17,8 +17,8 @@ import currencyConverter.converter.ICurrencyRateConverter;
 import currencyConverter.dto.CurrencyRateDTO;
 import currencyConverter.exception.CurrencyRateFetchingException;
 import currencyConverter.model.CurrencyCode;
-import currencyConverter.model.CurrencyModel;
-import currencyConverter.model.CurrencyRateModel;
+import currencyConverter.model.Currency;
+import currencyConverter.model.CurrencyRate;
 import currencyConverter.repository.CurrencyFileBasedRepository;
 import currencyConverter.repository.ICurrencyRateModelRepository;
 
@@ -27,7 +27,7 @@ class CurrencyRatesProvider implements ICurrencyRatesProvider {
     private static final String API_PATTERN = "https://api.privatbank.ua/p24api/exchange_rates?json&date=%s";
     private static final Integer SAVED_RATES_TTL_DAYS = 3;
 
-    private final Map<CurrencyCode, CurrencyModel> exchangeRateMap;
+    private final Map<CurrencyCode, Currency> exchangeRateMap;
 
     private ICurrencyRateConverter currencyRateConverter;
     private ICurrencyRateModelRepository currencyRateModelRepository;
@@ -41,33 +41,33 @@ class CurrencyRatesProvider implements ICurrencyRatesProvider {
     @Override
     public Double getCurrencyRate(CurrencyCode currencyCode) throws CurrencyRateFetchingException {
         if (!this.isCacheAvailable()) {
-            CurrencyRateModel currencyRateModel = this.currencyRateModelRepository.load();
-            if (currencyRateModel == null) {
-                currencyRateModel = this.currencyRateModelRepository.create(this.fetchLatestAvailableRates());
-            } else if (!this.isActual(currencyRateModel)) {
-                currencyRateModel = this.currencyRateModelRepository.update(this.fetchLatestAvailableRates());
+            CurrencyRate currencyRate = this.currencyRateModelRepository.load();
+            if (currencyRate == null) {
+                currencyRate = this.currencyRateModelRepository.create(this.fetchLatestAvailableRates());
+            } else if (!this.isActual(currencyRate)) {
+                currencyRate = this.currencyRateModelRepository.update(this.fetchLatestAvailableRates());
             }
-            this.updateLocalCache(currencyRateModel);
+            this.updateLocalCache(currencyRate);
         }
-        CurrencyModel currencyModel = this.exchangeRateMap.get(currencyCode);
-        if (currencyModel == null) {
+        Currency currency = this.exchangeRateMap.get(currencyCode);
+        if (currency == null) {
             throw new CurrencyRateFetchingException("Can not fetch data");
         }
-        return currencyModel.getRate();
+        return currency.getRate();
     }
 
     private boolean isCacheAvailable() {
         return !this.exchangeRateMap.isEmpty();
     }
 
-    private boolean isActual(CurrencyRateModel currencyRateModel) {
-        Date lastUpdateDate = new Date(currencyRateModel.getDate());
+    private boolean isActual(CurrencyRate currencyRate) {
+        Date lastUpdateDate = new Date(currencyRate.getDate());
         Calendar ttlCalendar = Calendar.getInstance();
         ttlCalendar.add(Calendar.DAY_OF_YEAR, -SAVED_RATES_TTL_DAYS);
         return lastUpdateDate.after(ttlCalendar.getTime());
     }
 
-    private CurrencyRateModel fetchLatestAvailableRates() throws CurrencyRateFetchingException {
+    private CurrencyRate fetchLatestAvailableRates() throws CurrencyRateFetchingException {
         try {
             Calendar calendar = Calendar.getInstance();
             CurrencyRateDTO rateDTO = this.fetchRatesForDate(calendar.getTime());
@@ -91,9 +91,9 @@ class CurrencyRatesProvider implements ICurrencyRatesProvider {
         return objectMapper.readValue(apiURL, CurrencyRateDTO.class);
     }
 
-    private void updateLocalCache(CurrencyRateModel currencyRateModel) {
-        for (CurrencyModel currencyModel : currencyRateModel.getExchangeRate()) {
-            this.exchangeRateMap.put(currencyModel.getCurrency(), currencyModel);
+    private void updateLocalCache(CurrencyRate currencyRate) {
+        for (Currency currency : currencyRate.getExchangeRate()) {
+            this.exchangeRateMap.put(currency.getCurrency(), currency);
         }
     }
 }

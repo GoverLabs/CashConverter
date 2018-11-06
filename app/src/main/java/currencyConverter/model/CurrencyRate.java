@@ -2,10 +2,10 @@ package currencyConverter.model;
 
 import java.util.List;
 
-public class CurrencyRateModel {
+public class CurrencyRate {
 
     private long date;
-    private List<CurrencyModel> exchangeRate;
+    private List<Currency> exchangeRate;
 
     public long getDate() {
         return this.date;
@@ -15,11 +15,11 @@ public class CurrencyRateModel {
         this.date = date;
     }
 
-    public List<CurrencyModel> getExchangeRate() {
+    public List<Currency> getExchangeRate() {
         return this.exchangeRate;
     }
 
-    public void setExchangeRate(List<CurrencyModel> exchangeRate) {
+    public void setExchangeRate(List<Currency> exchangeRate) {
         this.exchangeRate = exchangeRate;
     }
 }
