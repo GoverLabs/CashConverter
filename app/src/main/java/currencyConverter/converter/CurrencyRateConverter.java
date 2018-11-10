@@ -6,7 +6,7 @@ import java.util.List;
 
 import currencyConverter.dto.CurrencyDTO;
 import currencyConverter.dto.CurrencyRateDTO;
-import currencyConverter.model.CurrencyCode;
+import currencyConverter.codes.CurrencyCode;
 import currencyConverter.model.Currency;
 import currencyConverter.model.CurrencyRate;
 
@@ -25,7 +25,7 @@ public class CurrencyRateConverter implements ICurrencyRateConverter {
         for (CurrencyDTO currencyDTO : currencyDTOList) {
             Currency currency = new Currency();
             if (currencyDTO.getCurrency() != null) {
-                currency.setCurrency(CurrencyCode.fromCode(currencyDTO.getCurrency()));
+                currency.setCurrency(new CurrencyCode(currencyDTO.getCurrency()));
             }
             if (currencyDTO.getPurchaseRateNB() != null) {
                 currency.setRate(Double.parseDouble(currencyDTO.getPurchaseRateNB()));

@@ -9,14 +9,14 @@ public class CountryCode {
      *
      * @param stringISO country code in ISO 3166-1 alpha-2 format
      */
-    CountryCode(String stringISO) {
+    public CountryCode(String stringISO) {
         this.code = com.neovisionaries.i18n.CountryCode.getByCodeIgnoreCase(stringISO);
     }
 
     /**
      * Convert country code to ISO 3166-1 alpha-2 format
      */
-    String toStringISO() {
+    public String toStringISO() {
         return this.code.getAlpha2();
     }
 }

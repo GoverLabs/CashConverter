@@ -1,7 +1,7 @@
 package currencyConverter.service;
 
 import currencyConverter.exception.CurrencyRateFetchingException;
-import currencyConverter.model.CurrencyCode;
+import currencyConverter.codes.CurrencyCode;
 
 public interface ICurrencyConverter {
 
