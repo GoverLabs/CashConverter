@@ -1,5 +1,7 @@
 package currencyConverter.codes;
 
+import java.util.Currency;
+
 public class CountryCode {
 
     private com.neovisionaries.i18n.CountryCode code;
