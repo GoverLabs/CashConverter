@@ -17,6 +17,7 @@ import android.telephony.TelephonyManager;
 
 import currencyConverter.exception.CountryFethchingException;
 import currencyConverter.model.CountryModel;
+import currencyConverter.codes.CountryCode;
 import currencyConverter.repository.CountryRepository;
 import currencyConverter.repository.ICountryRepository;
 
@@ -26,15 +27,15 @@ public class CountryProvider implements ICountryProvider {
 
     private ICountryRepository countryRepository;
 
-    private String currentCountry;
-    private String nativeCountry;
+    private CountryCode currentCountry;
+    private CountryCode nativeCountry;
 
     CountryProvider() {
     	this.countryRepository = new CountryRepository();
 	}
 
     @Override
-    public String getCurrentCountry(Context context) throws CountryFethchingException {
+    public CountryCode getCurrentCountry(Context context) throws CountryFethchingException {
 
 		if(!this.isCacheAvailable()) {
 			CountryModel countryModel = this.countryRepository.load();
@@ -54,9 +55,7 @@ public class CountryProvider implements ICountryProvider {
     private boolean isCacheAvailable() {
     	return
 				this.currentCountry != null
-			&&	this.currentCountry != ""
-			&&	this.nativeCountry	!= null
-			&&	this.nativeCountry	!= "";
+			&&	this.nativeCountry	!= null;
 	}
 
 	private boolean isCacheActual(CountryModel countryModel) {
@@ -78,7 +77,7 @@ public class CountryProvider implements ICountryProvider {
 		}
 
 		CountryModel countryModel = new CountryModel();
-		countryModel.setCurrentCountry(countryCode);
+		countryModel.setCurrentCountry(new CountryCode(countryCode));
 		countryModel.setDate(new Date());
 
 		return countryModel;
@@ -142,11 +141,11 @@ public class CountryProvider implements ICountryProvider {
         return null;
     }
 
-	public void setNativeCountry(String nativeCountry) {
+	public void setNativeCountry(CountryCode nativeCountry) {
 		this.nativeCountry = nativeCountry;
 	}
 
-	public String getNativeCountry() {
+	public CountryCode getNativeCountry() {
     	return this.nativeCountry;
 	}
 

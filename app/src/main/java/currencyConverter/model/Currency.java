@@ -1,5 +1,7 @@
 package currencyConverter.model;
 
+import currencyConverter.codes.CurrencyCode;
+
 public class Currency {
 
     private CurrencyCode currency;

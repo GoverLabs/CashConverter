@@ -1,11 +1,12 @@
 package currencyConverter.model;
 
 import java.util.Date;
+import currencyConverter.codes.CountryCode;
 
 public class CountryModel {
 
 	private Date date;
-	private String currentCountry;
+	private CountryCode currentCountry;
 
 	public Date getDate() {
 
@@ -17,12 +18,12 @@ public class CountryModel {
 		this.date = date;
 	}
 
-	public String getCurrentCountry() {
+	public CountryCode getCurrentCountry() {
 
 		return currentCountry;
 	}
 
-	public void setCurrentCountry(String currentCountry) {
+	public void setCurrentCountry(CountryCode currentCountry) {
 
 		this.currentCountry = currentCountry;
 	}
