@@ -38,6 +38,7 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.samples.vision.ocrreader.ui.camera.CameraSource;
 import com.google.android.gms.samples.vision.ocrreader.ui.camera.CameraSourcePreview;
 import com.google.android.gms.samples.vision.ocrreader.ui.camera.GraphicOverlay;
+import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.Text;
 import com.google.android.gms.vision.text.TextRecognizer;
 
@@ -171,12 +173,12 @@ public final class OcrCaptureActivity extends AppCompatActivity {
     @SuppressLint("InlinedApi")
     private void createCameraSource(boolean autoFocus, boolean useFlash) {
         Context context = getApplicationContext();
-
+        ImageView cameraNoTextDetected = (ImageView) findViewById(R.id.cameraCanvas1);
+        ImageView cameraTextDetected = (ImageView) findViewById(R.id.cameraCanvas1);
         // TODO: Create the TextRecognizer
-        TextRecognizer textRecognizer = new TextRecognizer.Builder(context).build();
-
+        SelectedAreaTextRecognizer textRecognizer = new SelectedAreaTextRecognizer(context);
         // TODO: Set the TextRecognizer's Processor.
-        textRecognizer.setProcessor(new OcrDetectorProcessor(graphicOverlay, result));
+        textRecognizer.setProcessor(new OcrDetectorProcessor(graphicOverlay, result, cameraNoTextDetected, cameraTextDetected));
 
         // TODO: Check if the TextRecognizer is operational.
         if (!textRecognizer.isOperational()) {
@@ -192,15 +194,14 @@ public final class OcrCaptureActivity extends AppCompatActivity {
                 Log.w(TAG, getString(R.string.low_storage_error));
             }
         }
-
         // TODO: Create the cameraSource using the TextRecognizer.
         cameraSource =
                 new CameraSource.Builder(getApplicationContext(), textRecognizer)
                         .setFacing(CameraSource.CAMERA_FACING_BACK)
-                        .setRequestedPreviewSize(1280, 1024)
-                        .setRequestedFps(15.0f)
+                        .setRequestedPreviewSize(1024, 1024) //TODO update with device's screen resolution
+                        .setRequestedFps(30.f)
                         .setFlashMode(useFlash ? Camera.Parameters.FLASH_MODE_TORCH : null)
-                        .setFocusMode(autoFocus ? Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO : null)
+                        .setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO)
                         .build();
     }
 

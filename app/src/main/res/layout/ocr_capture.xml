@@ -2,6 +2,8 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/topLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -41,10 +43,33 @@
         android:layout_height="0dp"
         android:layout_weight="14" >
 
+        <ImageView
+            android:id="@+id/cameraCanvas2"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:foregroundGravity="top"
+            android:paddingTop="150dp"
+            android:paddingBottom="150dp"
+            android:visibility="visible"
+            app:srcCompat="@drawable/camera_canvas_2" />
+
+        <ImageView
+            android:id="@+id/cameraCanvas1"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            android:foregroundGravity="top"
+            android:paddingTop="150dp"
+            android:paddingBottom="150dp"
+            android:visibility="visible"
+            app:srcCompat="@drawable/camera_canvas_1" />
+
         <com.google.android.gms.samples.vision.ocrreader.ui.camera.GraphicOverlay
             android:id="@+id/graphicOverlay"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:foregroundGravity="bottom" />
 
     </com.google.android.gms.samples.vision.ocrreader.ui.camera.CameraSourcePreview>
 
