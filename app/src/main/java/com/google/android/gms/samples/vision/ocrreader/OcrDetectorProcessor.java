@@ -29,34 +29,25 @@ import java.text.DecimalFormat;
 /**
  * A very simple Processor which gets detected TextBlocks and adds them to the overlay
  * as OcrGraphics.
- * TODO: Make this implement Detector.Processor<TextBlock> and add text to the GraphicOverlay
  */
 public class OcrDetectorProcessor implements Detector.Processor<TextBlock> {
 
-    private GraphicOverlay<OcrGraphic> graphicOverlay;
     private TextView resultTextView;
 
     private static DecimalFormat df2 = new DecimalFormat(".##");
 
-    OcrDetectorProcessor(
-            GraphicOverlay<OcrGraphic> ocrGraphicOverlay
-        ,   TextView resultText
-    ) {
-        graphicOverlay = ocrGraphicOverlay;
+    OcrDetectorProcessor( TextView resultText ) {
         resultTextView = resultText;
     }
 
-    // TODO:  Once this implements Detector.Processor<TextBlock>, implement the abstract methods.
-
     @Override
     public void release() {
-        graphicOverlay.clear();
+
     }
 
     @Override
     public void receiveDetections(Detector.Detections<TextBlock> detections) {
 
-        graphicOverlay.clear();
         SparseArray<TextBlock> items = detections.getDetectedItems();
         for (int i = 0; i < items.size(); ++i) {
             TextBlock item = items.valueAt(i);
