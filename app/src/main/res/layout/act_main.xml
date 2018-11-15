@@ -5,13 +5,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.gms.samples.vision.ocrreader.ui.camera.GraphicOverlay
-        android:id="@+id/graphicOverlay2"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.7"/>
+        android:layout_weight="0.7">
+
+        <com.google.android.gms.samples.vision.ocrreader.ui.camera.CameraSourcePreview
+            android:id="@+id/preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.gms.samples.vision.ocrreader.ui.camera.GraphicOverlay
+                android:id="@+id/graphicOverlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.google.android.gms.samples.vision.ocrreader.ui.camera.CameraSourcePreview>
+
+    </LinearLayout>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.15">
+
+        <TextView
+            android:id="@+id/textViewResult"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutPriceEditor"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.15"
@@ -19,16 +46,17 @@
         android:visibility="gone">
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/editboxPrice"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="match_parent"
             android:ems="10"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:hint="@string/hint"
+            tools:ignore="Autofill" /> <!--TODO check last attribute-->
 
     </LinearLayout>
-
     <LinearLayout
+        android:id="@+id/layoutButtons"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.15"
@@ -37,46 +65,27 @@
         <!--android:visibility="gone">-->
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/buttonSettings"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Settings" />
+            android:layout_weight="0.3"
+            android:text="@string/settings"
+            android:onClick="onClickSettings"/>
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/buttonConvert"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Convert" />
+            android:layout_weight="0.4"
+            android:text="@string/convert" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/buttonEditPrice"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Edit" />
-    </LinearLayout>
-
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.15">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="$100.00"
-            app:autoSizeTextType="uniform"
-            app:autoSizeMinTextSize="12sp"
-            app:autoSizeMaxTextSize="100sp"
-            app:autoSizeStepGranularity="2sp"
-            tools:ignore="MissingPrefix" />
-
+            android:layout_weight="0.3"
+            android:text="@string/edit"
+            android:onClick="onClickEditPrice"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.1"
-        android:text="You current county is" />
+        android:text="You current country is" />
 
     <Spinner
         android:id="@+id/spinner2"
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="center"
-            android:text="CheckBox"
+            android:text="Use SIM-card info to get country"
             android:gravity="center"/>
     </LinearLayout>
 
@@ -62,14 +62,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="RadioButton" />
+                android:text="Light theme" />
 
             <RadioButton
                 android:id="@+id/radioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="RadioButton" />
+                android:text="Dark theme" />
         </RadioGroup>
     </LinearLayout>
 
@@ -79,6 +79,7 @@
         android:layout_height="0dp"
         android:layout_weight="0.2"
         android:layout_gravity="center"
-        android:text="Save &amp; Exit" />
+        android:text="Save &amp; Exit"
+        android:onClick="onClickSave"/>
 
 </LinearLayout>

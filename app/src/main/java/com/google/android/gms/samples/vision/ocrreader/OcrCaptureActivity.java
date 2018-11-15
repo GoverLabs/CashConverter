@@ -32,12 +32,14 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Layout;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.LinearLayout;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -70,8 +72,10 @@ public final class OcrCaptureActivity extends AppCompatActivity {
     private CameraSource cameraSource;
     private CameraSourcePreview preview;
     private GraphicOverlay graphicOverlay;
-    private EditText editTextOnError;
-    private TextView result;
+    private LinearLayout layoutPriceEditor;
+    private LinearLayout layoutButtons;
+    private EditText editboxPrice;
+    private TextView textViewResult;
 
     // A TextToSpeech engine for speaking a String value.
     private TextToSpeech tts;
@@ -82,12 +86,16 @@ public final class OcrCaptureActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setContentView(R.layout.ocr_capture);
+        setContentView(R.layout.act_main);
 
         preview = (CameraSourcePreview) findViewById(R.id.preview);
         graphicOverlay = (GraphicOverlay) findViewById(R.id.graphicOverlay);
-        editTextOnError = (EditText) findViewById(R.id.editTextOnError);
-        result = (TextView) findViewById(R.id.resultView);
+
+        layoutPriceEditor = (LinearLayout) findViewById(R.id.layoutPriceEditor);
+        layoutButtons = (LinearLayout) findViewById(R.id.layoutButtons);
+
+        editboxPrice = (EditText) findViewById(R.id.editboxPrice);
+        textViewResult = (TextView) findViewById(R.id.textViewResult);
 
         // Set good defaults for capturing text.
         boolean autoFocus = true;
@@ -144,7 +152,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
      * Creates and starts the camera.  Note that this uses a higher resolution in comparison
      * to other detection examples to enable the ocr detector to detect small text samples
      * at long distances.
-     *
+     * <p>
      * Suppressing InlinedApi since there is a check that the minimum version is met before using
      * the constant.
      */
@@ -154,7 +162,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
 
         TextRecognizer textRecognizer = new TextRecognizer.Builder(context).build();
 
-        textRecognizer.setProcessor(new OcrDetectorProcessor(result));
+        textRecognizer.setProcessor(new OcrDetectorProcessor(textViewResult));
 
         if (!textRecognizer.isOperational()) {
             Log.w(TAG, "Detector dependencies are not yet available.");
@@ -241,7 +249,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Log.d(TAG, "Camera permission granted - initialize the camera source");
             // We have permission, so create the camerasource
-            boolean autoFocus = getIntent().getBooleanExtra(AutoFocus,false);
+            boolean autoFocus = getIntent().getBooleanExtra(AutoFocus, false);
             boolean useFlash = getIntent().getBooleanExtra(UseFlash, false);
             createCameraSource(autoFocus, useFlash);
             return;
@@ -287,5 +295,21 @@ public final class OcrCaptureActivity extends AppCompatActivity {
                 cameraSource = null;
             }
         }
+    }
+
+    public void onClickSettings(View view) {
+        Intent intent = new Intent(this, PreferencesActivity.class);
+        startActivity(intent);
+    }
+
+    public void onClickEditPrice(View view) {
+        layoutButtons.setVisibility(View.GONE);
+        layoutPriceEditor.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onBackPressed() {
+        layoutButtons.setVisibility(View.VISIBLE);
+        layoutPriceEditor.setVisibility(View.GONE);
     }
 }
