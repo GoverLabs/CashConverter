@@ -17,9 +17,6 @@ package com.google.android.gms.samples.vision.ocrreader;
 
 import android.util.Log;
 import android.util.SparseArray;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.common.server.converter.StringToIntConverter;
@@ -32,67 +29,45 @@ import java.text.DecimalFormat;
 /**
  * A very simple Processor which gets detected TextBlocks and adds them to the overlay
  * as OcrGraphics.
- * TODO: Make this implement Detector.Processor<TextBlock> and add text to the GraphicOverlay
  */
 public class OcrDetectorProcessor implements Detector.Processor<TextBlock> {
 
-    private GraphicOverlay<OcrGraphic> graphicOverlay;
     private TextView resultTextView;
-    private ImageView noTextDetectedView;
-    private ImageView textDetectedView;
 
     private static DecimalFormat df2 = new DecimalFormat(".##");
 
-    OcrDetectorProcessor(
-            GraphicOverlay<OcrGraphic> ocrGraphicOverlay,
-            TextView resultText,
-            ImageView noTextDetectedView,
-            ImageView textDetectedView) {
-        this.graphicOverlay = ocrGraphicOverlay;
-        this.resultTextView = resultText;
-        this.noTextDetectedView = noTextDetectedView;
-        this.textDetectedView = textDetectedView;
+    OcrDetectorProcessor( TextView resultText ) {
+        resultTextView = resultText;
     }
 
     @Override
     public void release() {
-        graphicOverlay.clear();
+
     }
 
     @Override
     public void receiveDetections(Detector.Detections<TextBlock> detections) {
-        graphicOverlay.clear();
+
         SparseArray<TextBlock> items = detections.getDetectedItems();
-        if (items.size() > 0) {
+        for (int i = 0; i < items.size(); ++i) {
+            TextBlock item = items.valueAt(i);
+            if (item != null && item.getValue() != null) {
+                Log.d("Processor", "Text detected! " + item.getValue());
 
-            if (this.textDetectedView.getVisibility() != View.VISIBLE) {
-                this.noTextDetectedView.setVisibility(View.INVISIBLE);
-                this.textDetectedView.setVisibility(View.VISIBLE);
-            }
+                String text = item.getValue();
 
-            for (int i = 0; i < items.size(); ++i) {
-                TextBlock item = items.valueAt(i);
+                String[] number = text.split("\\D+");
 
-                //TODO update with new converter logic
-                if (item != null && item.getValue() != null) {
-                    Log.d("Processor", "Text detected! " + item.getValue());
-                    String[] number = item.getValue().split("\\D+");
+                if(number.length == 1 )
+                {
+                    final double value = Double.parseDouble(number[0]) / 26.5;
 
-                    if (number.length == 1) {
-                        final double value = Double.parseDouble(number[0]) / 26.5;
-
-                        resultTextView.post(new Runnable() {
-                            public void run() {
-                                resultTextView.setText("$ " + df2.format(value));
-                            }
-                        });
-                    }
+                    resultTextView.post(new Runnable() {
+                        public void run() {
+                            resultTextView.setText("$ " + df2.format(value));
+                        }
+                    });
                 }
-            }
-        } else {
-            if (this.noTextDetectedView.getVisibility() != View.VISIBLE) {
-                this.textDetectedView.setVisibility(View.INVISIBLE);
-                this.noTextDetectedView.setVisibility(View.VISIBLE);
             }
         }
     }
