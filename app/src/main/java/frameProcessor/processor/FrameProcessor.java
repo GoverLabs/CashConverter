@@ -8,8 +8,7 @@ import frameProcessor.detector.TextDetector;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
-
-import frameProcessor.textRecognizer.SelectedAreaTextRecognizer;
+import com.google.android.gms.vision.text.TextRecognizer;
 
 public class FrameProcessor implements IFrameProcessor {
 
@@ -17,7 +16,7 @@ public class FrameProcessor implements IFrameProcessor {
     private volatile boolean isAvailable;
 
     public FrameProcessor(Context context, TextView resultView) {
-        this.blockDetector = new SelectedAreaTextRecognizer(context);
+        this.blockDetector = new TextRecognizer.Builder(context).build();
         this.blockDetector.setProcessor(new TextDetector(resultView));
         this.isAvailable = false;
     }
