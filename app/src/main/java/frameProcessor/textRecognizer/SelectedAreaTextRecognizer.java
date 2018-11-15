@@ -1,4 +1,4 @@
-package com.google.android.gms.samples.vision.ocrreader;
+package frameProcessor.textRecognizer;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -40,7 +40,7 @@ public class SelectedAreaTextRecognizer extends Detector<TextBlock> {
             //If we split screen on 9 same parts, a text will be recognized only in the central one
             int splitX = bitmap.getWidth() / 3;
             int splitY = bitmap.getHeight() / 3;
-            Bitmap croppedBitmap = Bitmap.createBitmap(bitmap, splitX, splitY, bitmap.getWidth() - splitX * 2, bitmap.getHeight() - splitY * 2);
+            Bitmap croppedBitmap = Bitmap.createBitmap(bitmap, splitX, splitY, bitmap.getHeight() - splitY * 2, bitmap.getWidth() - splitX * 2);
             return this.textRecognizer.detect(new Frame.Builder().setBitmap(croppedBitmap).build());
         }
     }

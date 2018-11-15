@@ -20,7 +20,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -32,11 +31,11 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.LinearLayout;
@@ -46,10 +45,12 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.samples.vision.ocrreader.ui.camera.CameraSource;
 import com.google.android.gms.samples.vision.ocrreader.ui.camera.CameraSourcePreview;
 import com.google.android.gms.samples.vision.ocrreader.ui.camera.GraphicOverlay;
-import com.google.android.gms.vision.text.Text;
-import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.io.IOException;
+
+import listeners.CameraButtonListener;
+import frameProcessor.processor.FrameProcessor;
+import frameProcessor.processor.IFrameProcessor;
 
 /**
  * Activity for the Ocr Detecting app.  This app detects text and displays the value with the
@@ -74,8 +75,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
     private GraphicOverlay graphicOverlay;
     private LinearLayout layoutPriceEditor;
     private LinearLayout layoutButtons;
-    private EditText editboxPrice;
-    private TextView textViewResult;
+    private IFrameProcessor processor;
 
     // A TextToSpeech engine for speaking a String value.
     private TextToSpeech tts;
@@ -94,8 +94,9 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         layoutPriceEditor = (LinearLayout) findViewById(R.id.layoutPriceEditor);
         layoutButtons = (LinearLayout) findViewById(R.id.layoutButtons);
 
-        editboxPrice = (EditText) findViewById(R.id.editboxPrice);
-        textViewResult = (TextView) findViewById(R.id.textViewResult);
+        TextView textViewResult = (TextView) findViewById(R.id.textViewResult);
+
+        this.processor = new FrameProcessor(this.getApplicationContext(), textViewResult);
 
         // Set good defaults for capturing text.
         boolean autoFocus = true;
@@ -109,6 +110,9 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         } else {
             requestCameraPermission();
         }
+
+        final Button button = (Button) findViewById(R.id.buttonConvert);
+        button.setOnClickListener(new CameraButtonListener(this.processor, ((ImageView) findViewById(R.id.cameraCanvas1)), textViewResult));
     }
 
     /**
@@ -158,13 +162,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
      */
     @SuppressLint("InlinedApi")
     private void createCameraSource(boolean autoFocus, boolean useFlash) {
-        Context context = getApplicationContext();
-
-        TextRecognizer textRecognizer = new TextRecognizer.Builder(context).build();
-
-        textRecognizer.setProcessor(new OcrDetectorProcessor(textViewResult));
-
-        if (!textRecognizer.isOperational()) {
+        if (!this.processor.isOperational()) {
             Log.w(TAG, "Detector dependencies are not yet available.");
 
             // Check for low storage.  If there is low storage, the native library will not be
@@ -179,12 +177,12 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         }
 
         cameraSource =
-                new CameraSource.Builder(getApplicationContext(), textRecognizer)
+                new CameraSource.Builder(getApplicationContext(), this.processor)
                         .setFacing(CameraSource.CAMERA_FACING_BACK)
-                        .setRequestedPreviewSize(1280, 1024)
+                        .setRequestedPreviewSize(1280, 1280)
                         .setRequestedFps(15.0f)
                         .setFlashMode(useFlash ? Camera.Parameters.FLASH_MODE_TORCH : null)
-                        .setFocusMode(autoFocus ? Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO : null)
+                        .setFocusMode(autoFocus ? Camera.Parameters.FOCUS_MODE_AUTO : null)
                         .build();
     }
 

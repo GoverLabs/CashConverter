@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -14,6 +15,27 @@
             android:id="@+id/preview"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/cameraCanvas2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:paddingTop="130dp"
+                android:paddingBottom="130dp"
+                app:srcCompat="@drawable/camera_canvas_2" />
+
+            <ImageView
+                android:id="@+id/cameraCanvas1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"
+                android:clickable="false"
+                android:paddingTop="130dp"
+                android:paddingBottom="130dp"
+                app:srcCompat="@drawable/camera_canvas_1" />
 
             <com.google.android.gms.samples.vision.ocrreader.ui.camera.GraphicOverlay
                 android:id="@+id/graphicOverlay"

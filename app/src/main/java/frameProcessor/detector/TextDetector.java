@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.android.gms.samples.vision.ocrreader;
+package frameProcessor.detector;
 
 import android.util.Log;
 import android.util.SparseArray;
@@ -30,13 +30,13 @@ import java.text.DecimalFormat;
  * A very simple Processor which gets detected TextBlocks and adds them to the overlay
  * as OcrGraphics.
  */
-public class OcrDetectorProcessor implements Detector.Processor<TextBlock> {
+public class TextDetector implements Detector.Processor<TextBlock> {
 
     private TextView resultTextView;
 
     private static DecimalFormat df2 = new DecimalFormat(".##");
 
-    OcrDetectorProcessor( TextView resultText ) {
+    public TextDetector(TextView resultText ) {
         resultTextView = resultText;
     }
 
@@ -47,7 +47,6 @@ public class OcrDetectorProcessor implements Detector.Processor<TextBlock> {
 
     @Override
     public void receiveDetections(Detector.Detections<TextBlock> detections) {
-
         SparseArray<TextBlock> items = detections.getDetectedItems();
         for (int i = 0; i < items.size(); ++i) {
             TextBlock item = items.valueAt(i);
