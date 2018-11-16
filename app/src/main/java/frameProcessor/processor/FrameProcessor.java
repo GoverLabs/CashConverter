@@ -1,6 +1,7 @@
 package frameProcessor.processor;
 
 import android.content.Context;
+import android.util.SparseArray;
 import android.widget.TextView;
 
 import frameProcessor.detector.TextDetector;
@@ -10,7 +11,7 @@ import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 
-public class FrameProcessor implements IFrameProcessor {
+public class FrameProcessor extends Detector<TextBlock> implements IFrameProcessor {
 
     private Detector<TextBlock> blockDetector;
     private volatile boolean isAvailable;
@@ -37,12 +38,12 @@ public class FrameProcessor implements IFrameProcessor {
     }
 
     @Override
-    public void processFrame(Frame frame) {
-        this.blockDetector.receiveFrame(frame);
+    public void release() {
+        this.blockDetector.release();
     }
 
     @Override
-    public void release() {
-        this.blockDetector.release();
+    public SparseArray<TextBlock> detect(Frame frame) {
+        return this.isAvailable ? this.blockDetector.detect(frame) : new SparseArray<TextBlock>();
     }
 }

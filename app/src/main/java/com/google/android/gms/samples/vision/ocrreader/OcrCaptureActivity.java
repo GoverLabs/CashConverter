@@ -42,15 +42,17 @@ import android.widget.LinearLayout;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.samples.vision.ocrreader.ui.camera.CameraSource;
 import com.google.android.gms.samples.vision.ocrreader.ui.camera.CameraSourcePreview;
 import com.google.android.gms.samples.vision.ocrreader.ui.camera.GraphicOverlay;
+import com.google.android.gms.vision.CameraSource;
+import com.google.android.gms.vision.Detector;
+import com.google.android.gms.vision.text.TextBlock;
 
 import java.io.IOException;
 
+import frameProcessor.processor.IFrameProcessor;
 import listeners.CameraButtonListener;
 import frameProcessor.processor.FrameProcessor;
-import frameProcessor.processor.IFrameProcessor;
 
 /**
  * Activity for the Ocr Detecting app.  This app detects text and displays the value with the
@@ -75,7 +77,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
     private GraphicOverlay graphicOverlay;
     private LinearLayout layoutPriceEditor;
     private LinearLayout layoutButtons;
-    private IFrameProcessor processor;
+    private Detector<TextBlock> textBlockDetector;
 
     // A TextToSpeech engine for speaking a String value.
     private TextToSpeech tts;
@@ -96,7 +98,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
 
         TextView textViewResult = (TextView) findViewById(R.id.textViewResult);
 
-        this.processor = new FrameProcessor(this.getApplicationContext(), textViewResult);
+        this.textBlockDetector = new FrameProcessor(this.getApplicationContext(), textViewResult);
 
         // Set good defaults for capturing text.
         boolean autoFocus = true;
@@ -112,7 +114,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         }
 
         final Button button = (Button) findViewById(R.id.buttonConvert);
-        button.setOnClickListener(new CameraButtonListener(this.processor, ((ImageView) findViewById(R.id.cameraCanvas1)), textViewResult));
+        button.setOnClickListener(new CameraButtonListener((IFrameProcessor) this.textBlockDetector, ((ImageView) findViewById(R.id.cameraCanvas1)), textViewResult));
     }
 
     /**
@@ -162,7 +164,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
      */
     @SuppressLint("InlinedApi")
     private void createCameraSource(boolean autoFocus, boolean useFlash) {
-        if (!this.processor.isOperational()) {
+        if (!this.textBlockDetector.isOperational()) {
             Log.w(TAG, "Detector dependencies are not yet available.");
 
             // Check for low storage.  If there is low storage, the native library will not be
@@ -177,12 +179,11 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         }
 
         cameraSource =
-                new CameraSource.Builder(getApplicationContext(), this.processor)
+                new CameraSource.Builder(getApplicationContext(), this.textBlockDetector)
                         .setFacing(CameraSource.CAMERA_FACING_BACK)
                         .setRequestedPreviewSize(1280, 1280)
-                        .setRequestedFps(30.0f)
-                        .setFlashMode(useFlash ? Camera.Parameters.FLASH_MODE_TORCH : null)
-                        .setFocusMode(autoFocus ? Camera.Parameters.FOCUS_MODE_AUTO : null)
+                        .setRequestedFps(2.f)
+                        .setAutoFocusEnabled(true)
                         .build();
     }
 
