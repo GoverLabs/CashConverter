@@ -46,4 +46,10 @@ public class FrameProcessor extends Detector<TextBlock> implements IFrameProcess
     public SparseArray<TextBlock> detect(Frame frame) {
         return this.isAvailable ? this.blockDetector.detect(frame) : new SparseArray<TextBlock>();
     }
+
+    @Override
+    public void receiveFrame(Frame frame) {
+        if (isAvailable)
+            this.blockDetector.receiveFrame(frame);
+    }
 }
