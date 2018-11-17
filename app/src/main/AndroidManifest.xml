@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.google.android.gms.samples.vision.ocrreader"
-    android:installLocation="auto" >
+    android:installLocation="auto">
 
     <uses-feature android:name="android.hardware.camera" />
 
@@ -15,10 +15,10 @@
         android:allowBackup="true"
         android:fullBackupContent="false"
         android:hardwareAccelerated="true"
-        android:icon="@drawable/icon"
-        android:label="OcrReaderApp"
-        android:supportsRtl = "true"
-        android:theme="@style/Theme.AppCompat" >
+        android:icon="@drawable/wallet_icon"
+        android:label="Cash Converter"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat">
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -26,12 +26,17 @@
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="ocr" />
 
-        <activity android:name="com.google.android.gms.samples.vision.ocrreader.OcrCaptureActivity"
-            android:label="Read Text">
+        <activity
+            android:name=".OcrCaptureActivity"
+            android:label="Cash Converter">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".PreferencesActivity"
+            android:label="Preferences">
         </activity>
     </application>
 
