@@ -16,4 +16,9 @@
     <string name="convert">Convert</string>
     <string name="edit">Edit</string>
     <string name="hint">Write the price here, if automatic recognition is failed</string>
+    <string name="native_currency">Your native currency is</string>
+    <string name="current_currency">You current country is</string>
+    <string name="light_theme">Light theme</string>
+    <string name="dark_theme">Dark theme</string>
+    <string name="save_and_exit"><![CDATA[Save & Exit]]></string>
 </resources>

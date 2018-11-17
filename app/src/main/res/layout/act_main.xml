@@ -5,56 +5,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <com.google.android.gms.samples.vision.ocrreader.ui.camera.CameraSourcePreview
+        android:id="@+id/preview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.7">
 
-        <com.google.android.gms.samples.vision.ocrreader.ui.camera.CameraSourcePreview
-            android:id="@+id/preview"
+        <com.google.android.gms.samples.vision.ocrreader.ui.camera.GraphicOverlay
+            android:id="@+id/graphicOverlay"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent" />
 
-            <com.google.android.gms.samples.vision.ocrreader.ui.camera.GraphicOverlay
-                android:id="@+id/graphicOverlay"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+    </com.google.android.gms.samples.vision.ocrreader.ui.camera.CameraSourcePreview>
 
-        </com.google.android.gms.samples.vision.ocrreader.ui.camera.CameraSourcePreview>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.15">
-
-        <TextView
-            android:id="@+id/textViewResult"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layoutPriceEditor"
+    <TextView
+        android:id="@+id/textViewResult"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.15"
-        android:orientation="horizontal"
-        android:visibility="gone">
+        android:gravity="center"
+        tools:text="100" />
 
-        <EditText
-            android:id="@+id/editboxPrice"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            android:hint="@string/hint"
-            tools:ignore="Autofill" /> <!--TODO check last attribute-->
+    <EditText
+        android:id="@+id/editboxPrice"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:hint="@string/hint"
+        tools:ignore="Autofill" /> <!--TODO check last attribute-->
 
-    </LinearLayout>
     <LinearLayout
         android:id="@+id/layoutButtons"
         android:layout_width="match_parent"

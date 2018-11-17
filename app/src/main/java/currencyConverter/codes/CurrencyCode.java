@@ -1,8 +1,14 @@
 package currencyConverter.codes;
 
+import currencyConverter.model.Currency;
+
 public class CurrencyCode {
 
     private com.neovisionaries.i18n.CurrencyCode code;
+
+    CurrencyCode(com.neovisionaries.i18n.CurrencyCode code) {
+        this.code = code;
+    }
 
     /**
      * Constructs currency code from string format
