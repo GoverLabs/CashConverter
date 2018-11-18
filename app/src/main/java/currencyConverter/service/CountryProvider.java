@@ -15,6 +15,8 @@ import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 
+import com.google.android.gms.samples.vision.ocrreader.OcrCaptureActivity;
+
 import currencyConverter.exception.CountryFethchingException;
 import currencyConverter.model.CountryModel;
 import currencyConverter.codes.CountryCode;
@@ -30,7 +32,7 @@ public class CountryProvider implements ICountryProvider {
     private CountryCode currentCountry;
     private CountryCode nativeCountry;
 
-    CountryProvider() {
+    public CountryProvider(OcrCaptureActivity ocrCaptureActivity) {
     	this.countryRepository = new CountryRepository();
 	}
 

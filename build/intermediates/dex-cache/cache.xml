@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ponomarenko\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-annotations\2.8.5\9d82ff47bc2c2d3b5b6a6618fe636782bbcd5b07\jackson-annotations-2.8.5.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="28.0.1"
+        sha1="9d82ff47bc2c2d3b5b6a6618fe636782bbcd5b07">
+        <dex dex="D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\build\intermediates\transforms\dex\debug\folders\1000\10\jackson-annotations-2.8.5_dc07f93a8ac8410d4c583afba036061f1a42fa21\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ponomarenko\.android\build-cache\6d00e9bfcb246fba3b795a683f6c1d7cf2329a35\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="28.0.1"
+        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
+        <dex dex="D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_479aef2d01dc1861d0e818bf7ba8037c06dd126f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ponomarenko\.android\build-cache\a067032d6cabd87e8510b6cb0525b01ae94a7bd5\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="28.0.1"
+        sha1="5326d9a850d491714fef8cbfaa9ea3416f0bf0d2">
+        <dex dex="D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_618b64ed5c33409971f445226c87a68dfe7046fb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ponomarenko\.android\build-cache\196b3a284e18f7acad382ad3fee11d0a063b2e95\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="28.0.1"
+        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
+        <dex dex="D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_d5cb6d163d9c7e10b37390cb02d5ba49c42244c0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="28.0.1"
+        sha1="1c96dc20743c42b23be1f72f2b59637b17083903">
+        <dex dex="D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_d18fec1f79737d2eea229644f271ca4febd8ad84\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ponomarenko\.android\build-cache\260ee2cf561d923a3835e239bd8640403ad03b2e\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="28.0.1"
+        sha1="3dee4ce5844d39d843d503fb8fe04e51e5bfffac">
+        <dex dex="D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_527825b1dcfbb45c9eaea6e332ebf79b48c80514\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ponomarenko\.android\build-cache\9750652180a5bfbcc12321446e842c6a56bb2e7a\output\jars\libs\internal_impl-23.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="28.0.1"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.4.0_3ef7acb049323ee05281ea3043042f5a62c3d34b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ponomarenko\.android\build-cache\f6c3c29165bacdd5e8e1e753104a2a2e6bd26ea6\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="28.0.1"
+        sha1="8a36d229011e75f0caef408e1adf0d3fd4d94e02">
+        <dex dex="D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_2f1fc2a8aa2710b17f06ad2024357d035f7a30fc\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ponomarenko\.android\build-cache\5c867fc918b32a452eded03261c28c98c2fd58cc\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="28.0.1"
+        sha1="670df81539ab71918d49b186598b7eff08ef6563">
+        <dex dex="D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_8aff165b23060af1b98e60fbef0c6e92fc0260fb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ponomarenko\.android\build-cache\9750652180a5bfbcc12321446e842c6a56bb2e7a\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="28.0.1"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_31959b69d2373e163c6fd12b03fecc7e233833aa\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ponomarenko\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-annotations\23.4.0\support-annotations-23.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="28.0.1"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.4.0_b422cb18020c7caf478068d19bf68acd3a06f995\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ponomarenko\.gradle\caches\modules-2\files-2.1\com.neovisionaries\nv-i18n\1.23\32269e00fa8cdd4a1576a564c661fc2acf2660b2\nv-i18n-1.23.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="28.0.1"
+        sha1="32269e00fa8cdd4a1576a564c661fc2acf2660b2">
+        <dex dex="D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\build\intermediates\transforms\dex\debug\folders\1000\10\nv-i18n-1.23_c8ac54cbb54e1d82df9971b686d89b567f6c1685\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ponomarenko\.android\build-cache\3c951d79328dc6b0c04fc8cabd7c9ab2f85e33ec\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="28.0.1"
+        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
+        <dex dex="D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_87979d9f46e1b0a4aa7076e31a22e17cb692cb3b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ponomarenko\.android\build-cache\0c89bd5e8deab17cd7ad0131360d646d2ce8c6e1\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="28.0.1"
+        sha1="618485fef3ebe12127f7622abbc9b5b39057b5c2">
+        <dex dex="D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_de48552670843896c32b98a4aee55cabd01fe7ee\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ponomarenko\.android\build-cache\74e2d515252f04194053f5691cdaff427f2c17d3\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="28.0.1"
+        sha1="ec75036c3c52e451d0cde50a5aedaf5fd32354a0">
+        <dex dex="D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_940304fe26c1550d5452bb9caa6d2c6dfa213c26\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ponomarenko\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-databind\2.8.5\b3035f37e674c04dafe36a660c3815cc59f764e2\jackson-databind-2.8.5.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="28.0.1"
+        sha1="b3035f37e674c04dafe36a660c3815cc59f764e2">
+        <dex dex="D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\build\intermediates\transforms\dex\debug\folders\1000\10\jackson-databind-2.8.5_c8a1aba4a236d42dffef3d43f0a10e89927fb80b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="28.0.1"
+        sha1="12920f9016b8b05acbc2af7cdc13cef6946fe7d3">
+        <dex dex="D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_1329da3be13e6d15866f53e2416bce10936cb30b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ponomarenko\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-core\2.8.5\60d059f5d2930ccd1ef03535b713fd9f933d1ba7\jackson-core-2.8.5.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="28.0.1"
+        sha1="60d059f5d2930ccd1ef03535b713fd9f933d1ba7">
+        <dex dex="D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\build\intermediates\transforms\dex\debug\folders\1000\10\jackson-core-2.8.5_64c016101a6caaf783860ecff5135241f1ff5161\classes.dex" />
+    </item>
+
+</items>

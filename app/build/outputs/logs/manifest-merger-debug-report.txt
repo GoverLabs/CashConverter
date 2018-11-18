@@ -1,0 +1,121 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:2:1-43:12
+	package
+		ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:3:5-62
+		INJECTED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml
+		INJECTED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml
+		INJECTED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:2:11-69
+	android:versionCode
+		INJECTED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml
+		INJECTED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml
+	android:installLocation
+		ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:4:5-35
+uses-feature#android.hardware.camera
+ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:6:5-60
+	android:name
+		ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:6:19-57
+uses-permission#android.permission.CAMERA
+ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:8:5-65
+	android:name
+		ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:8:22-62
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:9:5-81
+	android:name
+		ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:9:22-78
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:12:5-79
+	android:name
+		ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:12:22-76
+application
+ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:14:5-41:19
+MERGED from [com.google.android.gms:play-services-vision:9.4.0] C:\Users\Ponomarenko\.android\build-cache\5c867fc918b32a452eded03261c28c98c2fd58cc\output\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-base:9.4.0] C:\Users\Ponomarenko\.android\build-cache\260ee2cf561d923a3835e239bd8640403ad03b2e\output\AndroidManifest.xml:19:5-23:19
+MERGED from [com.google.android.gms:play-services-tasks:9.4.0] C:\Users\Ponomarenko\.android\build-cache\f6c3c29165bacdd5e8e1e753104a2a2e6bd26ea6\output\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-basement:9.4.0] C:\Users\Ponomarenko\.android\build-cache\0c89bd5e8deab17cd7ad0131360d646d2ce8c6e1\output\AndroidManifest.xml:20:5-24:19
+MERGED from [com.android.support:design:23.4.0] C:\Users\Ponomarenko\.android\build-cache\a067032d6cabd87e8510b6cb0525b01ae94a7bd5\output\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:appcompat-v7:23.4.0] C:\Users\Ponomarenko\.android\build-cache\6d00e9bfcb246fba3b795a683f6c1d7cf2329a35\output\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:animated-vector-drawable:23.4.0] C:\Users\Ponomarenko\.android\build-cache\3c951d79328dc6b0c04fc8cabd7c9ab2f85e33ec\output\AndroidManifest.xml:7:5-20
+MERGED from [com.android.support:support-vector-drawable:23.4.0] C:\Users\Ponomarenko\.android\build-cache\196b3a284e18f7acad382ad3fee11d0a063b2e95\output\AndroidManifest.xml:7:5-20
+MERGED from [com.android.support:support-v4:23.4.0] C:\Users\Ponomarenko\.android\build-cache\9750652180a5bfbcc12321446e842c6a56bb2e7a\output\AndroidManifest.xml:22:5-20
+	android:label
+		ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:19:9-39
+	android:supportsRtl
+		ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:20:9-35
+	android:hardwareAccelerated
+		ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:17:9-43
+	android:fullBackupContent
+		ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:16:9-42
+	android:allowBackup
+		ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:15:9-35
+	android:icon
+		ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:18:9-45
+	android:theme
+		ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:21:9-47
+meta-data#com.google.android.gms.version
+ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:22:9-24:69
+MERGED from [com.google.android.gms:play-services-basement:9.4.0] C:\Users\Ponomarenko\.android\build-cache\0c89bd5e8deab17cd7ad0131360d646d2ce8c6e1\output\AndroidManifest.xml:21:9-23:69
+	android:value
+		ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:24:13-66
+	android:name
+		ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:23:13-58
+meta-data#com.google.android.gms.vision.DEPENDENCIES
+ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:25:9-27:35
+	android:value
+		ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:27:13-32
+	android:name
+		ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:26:13-70
+activity#com.google.android.gms.samples.vision.ocrreader.OcrCaptureActivity
+ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:29:9-37:20
+	android:label
+		ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:31:13-43
+	android:name
+		ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:30:13-47
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:32:13-36:29
+action#android.intent.action.MAIN
+ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:33:17-69
+	android:name
+		ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:33:25-66
+category#android.intent.category.LAUNCHER
+ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:35:17-77
+	android:name
+		ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:35:27-74
+activity#com.google.android.gms.samples.vision.ocrreader.PreferencesActivity
+ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:38:9-40:20
+	android:label
+		ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:39:13-40
+	android:name
+		ADDED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml:38:19-54
+uses-sdk
+INJECTED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.google.android.gms:play-services-vision:9.4.0] C:\Users\Ponomarenko\.android\build-cache\5c867fc918b32a452eded03261c28c98c2fd58cc\output\AndroidManifest.xml:4:5-42
+MERGED from [com.google.android.gms:play-services-base:9.4.0] C:\Users\Ponomarenko\.android\build-cache\260ee2cf561d923a3835e239bd8640403ad03b2e\output\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-tasks:9.4.0] C:\Users\Ponomarenko\.android\build-cache\f6c3c29165bacdd5e8e1e753104a2a2e6bd26ea6\output\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-basement:9.4.0] C:\Users\Ponomarenko\.android\build-cache\0c89bd5e8deab17cd7ad0131360d646d2ce8c6e1\output\AndroidManifest.xml:18:5-42
+MERGED from [com.android.support:design:23.4.0] C:\Users\Ponomarenko\.android\build-cache\a067032d6cabd87e8510b6cb0525b01ae94a7bd5\output\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:23.4.0] C:\Users\Ponomarenko\.android\build-cache\74e2d515252f04194053f5691cdaff427f2c17d3\output\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:appcompat-v7:23.4.0] C:\Users\Ponomarenko\.android\build-cache\6d00e9bfcb246fba3b795a683f6c1d7cf2329a35\output\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:animated-vector-drawable:23.4.0] C:\Users\Ponomarenko\.android\build-cache\3c951d79328dc6b0c04fc8cabd7c9ab2f85e33ec\output\AndroidManifest.xml:5:5-44
+MERGED from [com.android.support:support-vector-drawable:23.4.0] C:\Users\Ponomarenko\.android\build-cache\196b3a284e18f7acad382ad3fee11d0a063b2e95\output\AndroidManifest.xml:5:5-43
+MERGED from [com.android.support:support-v4:23.4.0] C:\Users\Ponomarenko\.android\build-cache\9750652180a5bfbcc12321446e842c6a56bb2e7a\output\AndroidManifest.xml:20:5-43
+	tools:overrideLibrary
+		ADDED from [com.android.support:appcompat-v7:23.4.0] C:\Users\Ponomarenko\.android\build-cache\6d00e9bfcb246fba3b795a683f6c1d7cf2329a35\output\AndroidManifest.xml:23:9-75
+	android:targetSdkVersion
+		INJECTED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml
+		INJECTED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml
+		INJECTED from D:\projects\AndroidStudioProjects\currencyConverterApp\CashConverter\app\src\main\AndroidManifest.xml
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:9.4.0] C:\Users\Ponomarenko\.android\build-cache\260ee2cf561d923a3835e239bd8640403ad03b2e\output\AndroidManifest.xml:20:9-22:45
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:9.4.0] C:\Users\Ponomarenko\.android\build-cache\260ee2cf561d923a3835e239bd8640403ad03b2e\output\AndroidManifest.xml:22:19-43
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:9.4.0] C:\Users\Ponomarenko\.android\build-cache\260ee2cf561d923a3835e239bd8640403ad03b2e\output\AndroidManifest.xml:21:19-78
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:9.4.0] C:\Users\Ponomarenko\.android\build-cache\260ee2cf561d923a3835e239bd8640403ad03b2e\output\AndroidManifest.xml:20:19-85

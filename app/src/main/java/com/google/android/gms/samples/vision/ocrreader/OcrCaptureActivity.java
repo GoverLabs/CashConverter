@@ -49,8 +49,17 @@ import com.google.android.gms.samples.vision.ocrreader.ui.camera.GraphicOverlay;
 import com.google.android.gms.vision.text.Text;
 import com.google.android.gms.vision.text.TextRecognizer;
 
+
 import java.io.IOException;
 
+import currencyConverter.codes.CurrencyCode;
+import currencyConverter.service.CountryProvider;
+import currencyConverter.service.CurrencyConverter;
+import currencyConverter.codes.CountryCode;
+import currencyConverter.codes.CurrencyCode;
+import currencyConverter.codes.CodeUtils;
+
+import currencyConverter.convertManager.ConversionExecuteManager;
 /**
  * Activity for the Ocr Detecting app.  This app detects text and displays the value with the
  * rear facing camera. During detection overlay graphics are drawn to indicate the position,
@@ -106,6 +115,49 @@ public final class OcrCaptureActivity extends AppCompatActivity {
             createCameraSource(autoFocus, useFlash);
         } else {
             requestCameraPermission();
+        }
+    }
+
+    public void onConvertClick (View v) { //execute when Convert button clicked
+        String inputString = "yuhg78654.90 hgfdg"; //test recognized string
+
+        //class ConversionExecuteManager in the convertManager package was added
+        //there is a tool for parse string to double
+        Double recognizedPrise = ConversionExecuteManager.parseRecognizedStringToDouble(inputString);
+
+        textViewResult.setText(recognizedPrise.toString()); //just for test
+
+        CountryCode countryCodeFrom = new CountryCode("UK"); //try to add code
+        CountryCode countryCodeTo = new CountryCode("UA"); //try to add code
+
+        CountryProvider countryProvider = new CountryProvider(this);
+
+        try {//throws to catch block
+            countryCodeFrom = countryProvider.getCurrentCountry(this); //I have seen no changes
+        }
+        catch(Exception ex){
+
+        }
+
+        CurrencyCode currencyCodeFrom = null;
+        CurrencyCode currencyCodeTo = null;
+
+        try { //throws to catch block
+            currencyCodeFrom = CodeUtils.getCurrencyFromCountry(countryCodeFrom);
+            currencyCodeTo = CodeUtils.getCurrencyFromCountry(countryCodeTo);
+        }
+        catch(Exception ex){
+
+        }
+
+        CurrencyConverter currencyConverter = new CurrencyConverter();
+        double result = 0;
+
+        try { //throws to catch block
+            result = currencyConverter.convert(currencyCodeFrom, currencyCodeTo, recognizedPrise);
+        }
+        catch(Exception ex) {
+
         }
     }
 

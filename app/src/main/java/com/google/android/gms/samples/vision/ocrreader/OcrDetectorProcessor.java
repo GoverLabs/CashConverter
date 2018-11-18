@@ -26,6 +26,9 @@ import com.google.android.gms.vision.text.TextBlock;
 
 import java.text.DecimalFormat;
 
+import currencyConverter.service.CountryProvider;
+
+
 /**
  * A very simple Processor which gets detected TextBlocks and adds them to the overlay
  * as OcrGraphics.

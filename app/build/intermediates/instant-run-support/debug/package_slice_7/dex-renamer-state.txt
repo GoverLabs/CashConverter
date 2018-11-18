@@ -1,0 +1,4 @@
+#Sat Nov 17 18:35:58 EET 2018
+base.0=D\:\\projects\\AndroidStudioProjects\\currencyConverterApp\\CashConverter\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\5\\slice_7
+renamed.0=classes.dex
+file.0=D\:\\projects\\AndroidStudioProjects\\currencyConverterApp\\CashConverter\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\5\\slice_7\\classes.dex
