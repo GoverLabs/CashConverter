@@ -71,7 +71,6 @@ public final class OcrCaptureActivity extends AppCompatActivity {
     private CameraSource cameraSource;
     private CameraSourcePreview preview;
     private GraphicOverlay graphicOverlay;
-    private LinearLayout layoutPriceEditor;
     private LinearLayout layoutButtons;
     private Detector<TextBlock> frameProcessor;
 
@@ -83,7 +82,6 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         preview = (CameraSourcePreview) findViewById(R.id.preview);
         graphicOverlay = (GraphicOverlay) findViewById(R.id.graphicOverlay);
 
-        layoutPriceEditor = (LinearLayout) findViewById(R.id.layoutPriceEditor);
         layoutButtons = (LinearLayout) findViewById(R.id.layoutButtons);
 
         final TextView textViewResult = (TextView) findViewById(R.id.textViewResult);
@@ -305,12 +303,12 @@ public final class OcrCaptureActivity extends AppCompatActivity {
 
     public void onClickEditPrice(View view) {
         layoutButtons.setVisibility(View.GONE);
-        layoutPriceEditor.setVisibility(View.VISIBLE);
+        editboxPrice.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onBackPressed() {
         layoutButtons.setVisibility(View.VISIBLE);
-        layoutPriceEditor.setVisibility(View.GONE);
+        editboxPrice.setVisibility(View.GONE);
     }
 }

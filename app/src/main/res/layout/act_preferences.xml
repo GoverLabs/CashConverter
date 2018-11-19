@@ -6,49 +6,36 @@
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.1"
-        android:text="Your native country is" />
+        android:layout_height="wrap_content"
+        android:text="@string/native_currency"
+        android:textSize="18sp" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/nativeCurrencySpinner"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.2" />
+        android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/currency_autodetection" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.1"
-        android:text="You current country is" />
+        android:layout_height="wrap_content"
+        android:text="@string/current_currency"
+        android:textSize="18sp" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/currentCurrencySpinner"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.2" />
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.2"
-        android:orientation="horizontal">
-
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:text="Use SIM-card info to get country"
-            android:gravity="center"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.2"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <RadioGroup
@@ -62,24 +49,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="Light theme" />
+                android:text="@string/light_theme"
+                android:textSize="18sp" />
 
             <RadioButton
                 android:id="@+id/radioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="Dark theme" />
+                android:text="@string/dark_theme"
+                android:textSize="18sp" />
         </RadioGroup>
     </LinearLayout>
 
     <Button
         android:id="@+id/button5"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="0.2"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Save &amp; Exit"
-        android:onClick="onClickSave"/>
+        android:onClick="onClickSave"
+        android:text="@string/save_and_exit"
+        android:textSize="18sp" />
 
 </LinearLayout>
