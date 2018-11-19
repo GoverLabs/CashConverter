@@ -13,60 +13,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.android.gms.samples.vision.ocrreader;
+package frameProcessor.detector;
 
 import android.util.Log;
 import android.util.SparseArray;
-import android.widget.TextView;
 
-import com.google.android.gms.common.server.converter.StringToIntConverter;
-import com.google.android.gms.samples.vision.ocrreader.ui.camera.GraphicOverlay;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
 
-import java.text.DecimalFormat;
+import listeners.AnonymousListener;
 
-/**
- * A very simple Processor which gets detected TextBlocks and adds them to the overlay
- * as OcrGraphics.
- */
-public class OcrDetectorProcessor implements Detector.Processor<TextBlock> {
+public class NumberDetector implements Detector.Processor<TextBlock> {
 
-    private TextView resultTextView;
+    private AnonymousListener listener;
 
-    private static DecimalFormat df2 = new DecimalFormat(".##");
-
-    OcrDetectorProcessor( TextView resultText ) {
-        resultTextView = resultText;
+    public NumberDetector() {
     }
 
     @Override
     public void release() {
+        //Just do nothing in this case
+    }
 
+    public void setOnNumberDetectedListener(AnonymousListener listener) {
+        this.listener = listener;
     }
 
     @Override
     public void receiveDetections(Detector.Detections<TextBlock> detections) {
-
         SparseArray<TextBlock> items = detections.getDetectedItems();
         for (int i = 0; i < items.size(); ++i) {
             TextBlock item = items.valueAt(i);
             if (item != null && item.getValue() != null) {
                 Log.d("Processor", "Text detected! " + item.getValue());
-
-                String text = item.getValue();
-
-                String[] number = text.split("\\D+");
-
-                if(number.length == 1 )
-                {
-                    final double value = Double.parseDouble(number[0]) / 26.5;
-
-                    resultTextView.post(new Runnable() {
-                        public void run() {
-                            resultTextView.setText("$ " + df2.format(value));
-                        }
-                    });
+                String text = item.getValue().replaceAll("[^0-9?!.]", "");
+                if (text.length() > 0) {
+                    this.listener.onEvent(text + "--> " + String.valueOf(Double.parseDouble(text) / 28));
                 }
             }
         }

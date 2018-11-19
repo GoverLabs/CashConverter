@@ -20,36 +20,39 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.hardware.Camera;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.LinearLayout;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.samples.vision.ocrreader.ui.camera.CameraSource;
 import com.google.android.gms.samples.vision.ocrreader.ui.camera.CameraSourcePreview;
 import com.google.android.gms.samples.vision.ocrreader.ui.camera.GraphicOverlay;
-import com.google.android.gms.vision.text.Text;
-import com.google.android.gms.vision.text.TextRecognizer;
+import com.google.android.gms.vision.CameraSource;
+import com.google.android.gms.vision.Detector;
+import com.google.android.gms.vision.text.TextBlock;
 
 import java.io.IOException;
+
+import frameProcessor.detector.NumberDetector;
+import frameProcessor.processor.FrameProcessor;
+import frameProcessor.processor.IFrameProcessor;
+import listeners.AnonymousListener;
+import listeners.CameraButtonListener;
 
 /**
  * Activity for the Ocr Detecting app.  This app detects text and displays the value with the
@@ -65,23 +68,12 @@ public final class OcrCaptureActivity extends AppCompatActivity {
     // Permission request codes need to be < 256
     private static final int RC_HANDLE_CAMERA_PERM = 2;
 
-    // Constants used to pass extra data in the intent
-    public static final String AutoFocus = "AutoFocus";
-    public static final String UseFlash = "UseFlash";
-
     private CameraSource cameraSource;
     private CameraSourcePreview preview;
     private GraphicOverlay graphicOverlay;
     private LinearLayout layoutButtons;
-    private EditText editboxPrice;
-    private TextView textViewResult;
+    private Detector<TextBlock> frameProcessor;
 
-    // A TextToSpeech engine for speaking a String value.
-    private TextToSpeech tts;
-
-    /**
-     * Initializes the UI and creates the detector pipeline.
-     */
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
@@ -92,20 +84,39 @@ public final class OcrCaptureActivity extends AppCompatActivity {
 
         layoutButtons = (LinearLayout) findViewById(R.id.layoutButtons);
 
-        editboxPrice = (EditText) findViewById(R.id.editboxPrice);
-        textViewResult = (TextView) findViewById(R.id.textViewResult);
+        final TextView textViewResult = (TextView) findViewById(R.id.textViewResult);
+        final ImageView cameraUnCaptureView = (ImageView) findViewById(R.id.cameraCanvas1);
+        this.frameProcessor = new FrameProcessor(this.getApplicationContext());
 
-        // Set good defaults for capturing text.
-        boolean autoFocus = true;
-        boolean useFlash = false;
+        NumberDetector numberDetector = new NumberDetector();
+        numberDetector.setOnNumberDetectedListener(new AnonymousListener() {
+
+            @Override
+            public void onEvent(final String result) {
+                textViewResult.post(new Runnable() {
+                    public void run() {
+                        textViewResult.setText("$ " + result);
+                        ((IFrameProcessor) frameProcessor).setAvailability(false);
+                        cameraUnCaptureView.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+        });
+        this.frameProcessor.setProcessor(numberDetector);
 
         // Check for the camera permission before accessing the camera.  If the
         // permission is not granted yet, request permission.
         int rc = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         if (rc == PackageManager.PERMISSION_GRANTED) {
-            createCameraSource(autoFocus, useFlash);
+            initCameraSource();
         } else {
             requestCameraPermission();
+        }
+
+        final Button button = (Button) findViewById(R.id.buttonConvert);
+        if (button != null) {
+            button.setOnClickListener(new CameraButtonListener(
+                    (IFrameProcessor) this.frameProcessor, cameraUnCaptureView, textViewResult));
         }
     }
 
@@ -155,14 +166,8 @@ public final class OcrCaptureActivity extends AppCompatActivity {
      * the constant.
      */
     @SuppressLint("InlinedApi")
-    private void createCameraSource(boolean autoFocus, boolean useFlash) {
-        Context context = getApplicationContext();
-
-        TextRecognizer textRecognizer = new TextRecognizer.Builder(context).build();
-
-        textRecognizer.setProcessor(new OcrDetectorProcessor(textViewResult));
-
-        if (!textRecognizer.isOperational()) {
+    private void initCameraSource() {
+        if (!this.frameProcessor.isOperational()) {
             Log.w(TAG, "Detector dependencies are not yet available.");
 
             // Check for low storage.  If there is low storage, the native library will not be
@@ -176,13 +181,12 @@ public final class OcrCaptureActivity extends AppCompatActivity {
             }
         }
 
-        cameraSource =
-                new CameraSource.Builder(getApplicationContext(), textRecognizer)
+        this.cameraSource =
+                new CameraSource.Builder(getApplicationContext(), this.frameProcessor)
                         .setFacing(CameraSource.CAMERA_FACING_BACK)
-                        .setRequestedPreviewSize(1280, 1024)
-                        .setRequestedFps(15.0f)
-                        .setFlashMode(useFlash ? Camera.Parameters.FLASH_MODE_TORCH : null)
-                        .setFocusMode(autoFocus ? Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO : null)
+                        .setRequestedPreviewSize(1280, 1280)
+                        .setRequestedFps(2.f)
+                        .setAutoFocusEnabled(true)
                         .build();
     }
 
@@ -246,10 +250,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
 
         if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Log.d(TAG, "Camera permission granted - initialize the camera source");
-            // We have permission, so create the camerasource
-            boolean autoFocus = getIntent().getBooleanExtra(AutoFocus, false);
-            boolean useFlash = getIntent().getBooleanExtra(UseFlash, false);
-            createCameraSource(autoFocus, useFlash);
+            this.initCameraSource();
             return;
         }
 
