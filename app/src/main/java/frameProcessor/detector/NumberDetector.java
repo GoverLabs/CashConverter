@@ -23,10 +23,6 @@ import com.google.android.gms.vision.text.TextBlock;
 
 import listeners.AnonymousListener;
 
-/**
- * A very simple Processor which gets detected TextBlocks and adds them to the overlay
- * as OcrGraphics.
- */
 public class NumberDetector implements Detector.Processor<TextBlock> {
 
     private AnonymousListener listener;
@@ -36,7 +32,7 @@ public class NumberDetector implements Detector.Processor<TextBlock> {
 
     @Override
     public void release() {
-
+        //Just do nothing in this case
     }
 
     public void setOnNumberDetectedListener(AnonymousListener listener) {
@@ -50,14 +46,9 @@ public class NumberDetector implements Detector.Processor<TextBlock> {
             TextBlock item = items.valueAt(i);
             if (item != null && item.getValue() != null) {
                 Log.d("Processor", "Text detected! " + item.getValue());
-
-                String text = item.getValue();
-
-                String[] number = text.split("\\D+");
-
-                if (number.length == 1) {
-                    final double value = Double.parseDouble(number[0]) / 26.5;
-                    this.listener.onEvent(String.valueOf(value));
+                String text = item.getValue().replaceAll("[^0-9?!.]", "");
+                if (text.length() > 0) {
+                    this.listener.onEvent(text + "--> " + String.valueOf(Double.parseDouble(text) / 28));
                 }
             }
         }

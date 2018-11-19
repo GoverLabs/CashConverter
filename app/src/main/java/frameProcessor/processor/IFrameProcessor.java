@@ -4,5 +4,4 @@ public interface IFrameProcessor {
 
     boolean isAvailable();
     void setAvailability(boolean isAvailable);
-    boolean isOperational();
 }
