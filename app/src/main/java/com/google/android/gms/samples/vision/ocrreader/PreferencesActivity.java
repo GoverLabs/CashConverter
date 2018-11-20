@@ -3,6 +3,7 @@ package com.google.android.gms.samples.vision.ocrreader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -11,14 +12,22 @@ import android.widget.Spinner;
 import java.util.List;
 
 import currencyConverter.codes.CodeUtils;
+import currencyConverter.codes.CountryCode;
 import currencyConverter.codes.CurrencyCode;
-import currencyConverter.service.CountryProvider;
+import currencyConverter.exception.CountryFethchingException;
+import currencyConverter.exception.CurrencyCodeFetchingException;
+import currencyConverter.service.ICountryProvider;
+import currencyConverter.service.ServiceFactory;
+import userData.UserData;
 
 public class PreferencesActivity extends AppCompatActivity {
 
 	private Spinner nativeCurrencySpinner;
+	private Spinner currentCountrySpinner;
 	private Spinner currentCurrencySpinner;
 	private CheckBox currencyAutoDetectCheckBox;
+
+	private UserData userData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +35,12 @@ public class PreferencesActivity extends AppCompatActivity {
         setContentView(R.layout.act_preferences);
 
 	    nativeCurrencySpinner = (Spinner) findViewById(R.id.nativeCurrencySpinner);
+		currentCountrySpinner = (Spinner) findViewById(R.id.currentCountrySpinner);
 	    currentCurrencySpinner = (Spinner) findViewById(R.id.currentCurrencySpinner);
 	    currencyAutoDetectCheckBox = (CheckBox) findViewById(R.id.checkBox);
+
+	    // TODO replace by parsing
+	    this.userData = new UserData();
 
 	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 			    this,
@@ -44,16 +57,67 @@ public class PreferencesActivity extends AppCompatActivity {
 			    new CompoundButton.OnCheckedChangeListener() {
 				    @Override
 				    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-					    if(isChecked) {
-						    currentCurrencySpinner.setEnabled(false);
-					    }
-					    else {
-						    currentCurrencySpinner.setEnabled(true);
+
+						currentCurrencySpinner.setEnabled(isChecked);
+						currentCountrySpinner.setEnabled(isChecked);
+						userData.setAutoDetectionEnabled(isChecked);
+
+						if(isChecked) {
+							onAutoDetectionEnabled();
+					    } else {
+							onAutoDetectionDisabled();
 					    }
 				    }
 			    }
 	    );
+
+		nativeCurrencySpinner.setOnItemClickListener(
+				new AdapterView.OnItemClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+					}
+				}
+		);
+
+		currentCountrySpinner.setOnItemClickListener(
+				new AdapterView.OnItemClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+					}
+				}
+		);
+
+		currentCurrencySpinner.setOnItemClickListener(
+				new AdapterView.OnItemClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+					}
+				}
+		);
     }
+
+    private void onAutoDetectionEnabled() {
+		ICountryProvider countryProvider = ServiceFactory.createCountryProvider();
+
+		try {
+			CountryCode currentCountry = countryProvider.getCurrentCountry(getApplicationContext());
+			CurrencyCode currencyCode = CodeUtils.getCurrencyFromCountry(currentCountry);
+
+			userData.setCurrentCountry(currentCountry);
+			userData.setCurrentCurrency(currencyCode);
+		} catch (CountryFethchingException e) {
+			e.printStackTrace();
+		} catch (CurrencyCodeFetchingException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void onAutoDetectionDisabled() {
+
+	}
 
     public void onClickSave(View view) {
         finish();

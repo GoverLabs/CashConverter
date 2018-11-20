@@ -21,14 +21,13 @@ import currencyConverter.codes.CountryCode;
 import currencyConverter.repository.CountryRepository;
 import currencyConverter.repository.ICountryRepository;
 
-public class CountryProvider implements ICountryProvider {
+class CountryProvider implements ICountryProvider {
 
 	private static final Integer SAVED_RATES_TTL_DAYS = 3;
 
     private ICountryRepository countryRepository;
 
     private CountryCode currentCountry;
-    private CountryCode nativeCountry;
 
     CountryProvider() {
     	this.countryRepository = new CountryRepository();
@@ -53,9 +52,8 @@ public class CountryProvider implements ICountryProvider {
     }
 
     private boolean isCacheAvailable() {
-    	return
-				this.currentCountry != null
-			&&	this.nativeCountry	!= null;
+    	return this.currentCountry != null;
+
 	}
 
 	private boolean isCacheActual(CountryModel countryModel) {
@@ -140,14 +138,6 @@ public class CountryProvider implements ICountryProvider {
         }
         return null;
     }
-
-	public void setNativeCountry(CountryCode nativeCountry) {
-		this.nativeCountry = nativeCountry;
-	}
-
-	public CountryCode getNativeCountry() {
-    	return this.nativeCountry;
-	}
 
 	private void updateLocalCache(CountryModel countryModel) {
 		this.currentCountry = countryModel.getCurrentCountry();

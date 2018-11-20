@@ -3,11 +3,11 @@ package currencyConverter.service;
 import currencyConverter.exception.CurrencyRateFetchingException;
 import currencyConverter.codes.CurrencyCode;
 
-public class CurrencyConverter implements ICurrencyConverter {
+class CurrencyConverter implements ICurrencyConverter {
 
     private ICurrencyRatesProvider currencyRatesProvider;
 
-    public CurrencyConverter() {
+    CurrencyConverter() {
         this.currencyRatesProvider = new CurrencyRatesProvider();
     }
 
