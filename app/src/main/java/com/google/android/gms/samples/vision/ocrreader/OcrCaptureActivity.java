@@ -33,6 +33,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -72,6 +73,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
     private CameraSourcePreview preview;
     private GraphicOverlay graphicOverlay;
     private LinearLayout layoutButtons;
+    private EditText editboxPrice;
     private Detector<TextBlock> frameProcessor;
 
     @Override
@@ -81,8 +83,8 @@ public final class OcrCaptureActivity extends AppCompatActivity {
 
         preview = (CameraSourcePreview) findViewById(R.id.preview);
         graphicOverlay = (GraphicOverlay) findViewById(R.id.graphicOverlay);
-
         layoutButtons = (LinearLayout) findViewById(R.id.layoutButtons);
+		editboxPrice = (EditText) findViewById(R.id.editboxPrice);
 
         final TextView textViewResult = (TextView) findViewById(R.id.textViewResult);
         final ImageView cameraUnCaptureView = (ImageView) findViewById(R.id.cameraCanvas1);
