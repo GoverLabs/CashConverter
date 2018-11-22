@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 
+import activity.ContextSingleton;
 import currencyConverter.exception.CountryFethchingException;
 import currencyConverter.model.CountryModel;
 
@@ -15,9 +16,9 @@ public class CountryRepository implements ICountryRepository {
 	@Override
 	public void create(CountryModel model) throws CountryFethchingException {
 
+		File file = new File(ContextSingleton.getInstance().getContext().getFilesDir(), FILE_NAME);
 		try {
 			if (model != null) {
-				File file = new File(FILE_NAME);
 
 				if (!file.exists()) {
 
@@ -25,6 +26,7 @@ public class CountryRepository implements ICountryRepository {
 					new ObjectMapper().writeValue(file, model);
 				}
 				else {
+					file.delete();
 					throw new CountryFethchingException();
 				}
 			}

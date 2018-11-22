@@ -25,4 +25,11 @@ public class CurrencyCode {
     public String toStringISO() {
         return this.code.getName();
     }
+
+	/**
+	 * For SR only
+	 */
+    public com.neovisionaries.i18n.CurrencyCode getCode() {
+        return this.code;
+    }
 }

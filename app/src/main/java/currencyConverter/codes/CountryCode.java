@@ -21,4 +21,11 @@ public class CountryCode {
     public String toStringISO() {
         return this.code.getAlpha2();
     }
+
+    /**
+     * For SR only
+     */
+    public com.neovisionaries.i18n.CountryCode getCode() {
+        return this.code;
+    }
 }

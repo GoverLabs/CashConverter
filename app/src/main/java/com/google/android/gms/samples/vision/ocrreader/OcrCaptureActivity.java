@@ -49,6 +49,7 @@ import com.google.android.gms.vision.text.TextBlock;
 
 import java.io.IOException;
 
+import activity.ContextSingleton;
 import frameProcessor.detector.NumberDetector;
 import frameProcessor.processor.FrameProcessor;
 import frameProcessor.processor.IFrameProcessor;
@@ -82,6 +83,9 @@ public final class OcrCaptureActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
+
+        ContextSingleton.init(getApplicationContext());
+
         setContentView(R.layout.act_main);
 
         preview = (CameraSourcePreview) findViewById(R.id.preview);

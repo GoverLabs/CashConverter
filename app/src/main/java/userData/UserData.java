@@ -13,13 +13,16 @@ public class UserData implements Parcelable {
 	private CurrencyCode nativeCurrency;
 	private CurrencyCode currentCurrency;
 
-	private boolean isAutoDetectionEnabled;
+	private boolean autodetectionEnabled;
 
 	public UserData() {
 
 	}
 
 	protected UserData(Parcel in) {
+		UserData newUserData = new UserData();
+
+		// TODO
 	}
 
 	public static final Creator<UserData> CREATOR = new Creator<UserData>() {
@@ -58,6 +61,14 @@ public class UserData implements Parcelable {
 		this.currentCurrency = currentCurrency;
 	}
 
+	public boolean isAutodetectionEnabled() {
+		return autodetectionEnabled;
+	}
+
+	public void setAutodetectionEnabled(boolean autodetectionEnabled) {
+		this.autodetectionEnabled = autodetectionEnabled;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -65,15 +76,11 @@ public class UserData implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-	}
+		dest = Parcel.obtain();
 
-	public boolean isAutoDetectionEnabled() {
-		return isAutoDetectionEnabled;
+		dest.writeInt(currentCountry.getCode().getNumeric());
+		dest.writeInt(nativeCurrency.getCode().getNumeric());
+		dest.writeInt(currentCurrency.getCode().getNumeric());
+		dest.writeByte((byte) (autodetectionEnabled ? 1 : 0));
 	}
-
-	public void setAutoDetectionEnabled(boolean autoDetectionEnabled) {
-		isAutoDetectionEnabled = autoDetectionEnabled;
-	}
-
-	// TODO implement parcing
 }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 
+import activity.ContextSingleton;
 import currencyConverter.exception.CurrencyRateFetchingException;
 import currencyConverter.model.CurrencyRate;
 
@@ -16,7 +17,8 @@ public class CurrencyFileBasedRepository implements ICurrencyRateModelRepository
     public CurrencyRate create(CurrencyRate model) throws CurrencyRateFetchingException {
         try {
             if (model != null) {
-                File file = new File(FILE_NAME);
+                File file = new File(ContextSingleton.getInstance().getContext().getFilesDir(), FILE_NAME);
+
                 if (!file.exists()) {
                     file.createNewFile();
                 }
