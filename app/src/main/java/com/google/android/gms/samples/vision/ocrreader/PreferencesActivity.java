@@ -3,13 +3,10 @@ package com.google.android.gms.samples.vision.ocrreader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
-
-import java.util.List;
 
 import currencyConverter.codes.CodeUtils;
 import currencyConverter.codes.CountryCode;
@@ -60,7 +57,7 @@ public class PreferencesActivity extends AppCompatActivity {
 
 						currentCurrencySpinner.setEnabled(isChecked);
 						currentCountrySpinner.setEnabled(isChecked);
-						userData.setAutoDetectionEnabled(isChecked);
+						userData.setAutodetectionEnabled(isChecked);
 
 						if(isChecked) {
 							onAutoDetectionEnabled();
@@ -71,32 +68,32 @@ public class PreferencesActivity extends AppCompatActivity {
 			    }
 	    );
 
-		nativeCurrencySpinner.setOnItemClickListener(
-				new AdapterView.OnItemClickListener() {
-					@Override
-					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-					}
-				}
-		);
-
-		currentCountrySpinner.setOnItemClickListener(
-				new AdapterView.OnItemClickListener() {
-					@Override
-					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-					}
-				}
-		);
-
-		currentCurrencySpinner.setOnItemClickListener(
-				new AdapterView.OnItemClickListener() {
-					@Override
-					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-					}
-				}
-		);
+//		nativeCurrencySpinner.setOnItemClickListener(
+//				new AdapterView.OnItemClickListener() {
+//					@Override
+//					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//					}
+//				}
+//		);
+//
+//		currentCountrySpinner.setOnItemClickListener(
+//				new AdapterView.OnItemClickListener() {
+//					@Override
+//					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//					}
+//				}
+//		);
+//
+//		currentCurrencySpinner.setOnItemClickListener(
+//				new AdapterView.OnItemClickListener() {
+//					@Override
+//					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//					}
+//				}
+//		);
     }
 
     private void onAutoDetectionEnabled() {
