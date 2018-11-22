@@ -28,4 +28,13 @@ public class CountryCode {
     public com.neovisionaries.i18n.CountryCode getCode() {
         return this.code;
     }
+
+	/**
+	 * Constructs country code from string format
+	 *
+	 * @param numeric country code in numeric format
+	 */
+	public CountryCode(int numeric) {
+		this.code = com.neovisionaries.i18n.CountryCode.getByCode(numeric);
+	}
 }

@@ -16,13 +16,17 @@ public class UserData implements Parcelable {
 	private boolean autodetectionEnabled;
 
 	public UserData() {
-
+		this.currentCountry = new CountryCode("USA");
+		this.nativeCurrency = new CurrencyCode("USD");
+		this.currentCurrency = new CurrencyCode("USD");
+		this.autodetectionEnabled = true;
 	}
 
 	protected UserData(Parcel in) {
-		UserData newUserData = new UserData();
-
-		// TODO
+		this.currentCountry = new CountryCode(in.readInt());
+		this.nativeCurrency = new CurrencyCode(in.readInt());
+		this.currentCurrency = new CurrencyCode(in.readInt());
+		this.autodetectionEnabled = ( in.readByte() != 0 );
 	}
 
 	public static final Creator<UserData> CREATOR = new Creator<UserData>() {
@@ -76,8 +80,6 @@ public class UserData implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest = Parcel.obtain();
-
 		dest.writeInt(currentCountry.getCode().getNumeric());
 		dest.writeInt(nativeCurrency.getCode().getNumeric());
 		dest.writeInt(currentCurrency.getCode().getNumeric());

@@ -1,5 +1,6 @@
 package com.google.android.gms.samples.vision.ocrreader;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -35,9 +36,6 @@ public class PreferencesActivity extends AppCompatActivity {
 		currentCountrySpinner = (Spinner) findViewById(R.id.currentCountrySpinner);
 	    currentCurrencySpinner = (Spinner) findViewById(R.id.currentCurrencySpinner);
 	    currencyAutoDetectCheckBox = (CheckBox) findViewById(R.id.checkBox);
-
-	    // TODO replace by parsing
-	    this.userData = new UserData();
 
 	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 			    this,
@@ -94,6 +92,14 @@ public class PreferencesActivity extends AppCompatActivity {
 //					}
 //				}
 //		);
+
+	    this.userData = (UserData) getIntent().getParcelableExtra("EXTRA_USER_DATA");
+
+	    if(this.userData.isAutodetectionEnabled()) {
+		    onAutoDetectionEnabled();
+	    } else {
+		    onAutoDetectionDisabled();
+	    }
     }
 
     private void onAutoDetectionEnabled() {
@@ -117,6 +123,9 @@ public class PreferencesActivity extends AppCompatActivity {
 	}
 
     public void onClickSave(View view) {
-        finish();
+	    Intent intent = new Intent();
+	    intent.putExtra("EXTRA_USER_DATA", this.userData);
+	    setResult(RESULT_OK, intent);
+	    finish();
     }
 }

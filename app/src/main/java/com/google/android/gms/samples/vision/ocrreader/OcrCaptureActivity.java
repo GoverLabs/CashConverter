@@ -310,7 +310,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
     public void onClickSettings(View view) {
         Intent intent = new Intent(this, PreferencesActivity.class);
         intent.putExtra("EXTRA_USER_DATA", this.userData);
-        startActivity(intent);
+	    startActivityForResult(intent, 1);
     }
 
     public void onClickEditPrice(View view) {
@@ -326,6 +326,6 @@ public final class OcrCaptureActivity extends AppCompatActivity {
 
     @Override
 	public void onActivityResult(int requestCode, int resultCode, Intent dataIntent) {
-
+        this.userData = dataIntent.getParcelableExtra("EXTRA_USER_DATA");
 	}
 }
