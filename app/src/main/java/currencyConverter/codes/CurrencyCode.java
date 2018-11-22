@@ -32,4 +32,13 @@ public class CurrencyCode {
     public com.neovisionaries.i18n.CurrencyCode getCode() {
         return this.code;
     }
+
+	/**
+	 * Constructs country code from string format
+	 *
+	 * @param numeric country code in numeric format
+	 */
+	public CurrencyCode(int numeric) {
+		this.code = com.neovisionaries.i18n.CurrencyCode.getByCode(numeric);
+	}
 }
