@@ -56,6 +56,8 @@ import frameProcessor.processor.IFrameProcessor;
 import listeners.AnonymousListener;
 import listeners.CameraButtonListener;
 import userData.UserData;
+import userData.repository.IUserDataRepository;
+import userData.repository.UserDataRepository;
 
 /**
  * Activity for the Ocr Detecting app.  This app detects text and displays the value with the
@@ -79,6 +81,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
     private Detector<TextBlock> frameProcessor;
 
     private UserData userData;
+    private IUserDataRepository userDataRepository;
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -113,9 +116,15 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         });
         this.frameProcessor.setProcessor(numberDetector);
 
-		this.userData = new UserData();
+		this.userDataRepository = new UserDataRepository();
+	    this.userData = this.userDataRepository.load();
 
-        // Check for the camera permission before accessing the camera.  If the
+	    if(this.userData == null) {
+	    	this.userData = new UserData();
+	    	this.userDataRepository.create(this.userData);
+	    }
+
+	    // Check for the camera permission before accessing the camera.  If the
         // permission is not granted yet, request permission.
         int rc = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         if (rc == PackageManager.PERMISSION_GRANTED) {
@@ -326,6 +335,9 @@ public final class OcrCaptureActivity extends AppCompatActivity {
 
     @Override
 	public void onActivityResult(int requestCode, int resultCode, Intent dataIntent) {
-        this.userData = dataIntent.getParcelableExtra("EXTRA_USER_DATA");
+        UserData newData = dataIntent.getParcelableExtra("EXTRA_USER_DATA");
+
+        this.userData = newData;
+        this.userDataRepository.update(newData);
 	}
 }
