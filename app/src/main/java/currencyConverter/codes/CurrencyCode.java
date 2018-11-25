@@ -41,4 +41,7 @@ public class CurrencyCode {
 	public CurrencyCode(int numeric) {
 		this.code = com.neovisionaries.i18n.CurrencyCode.getByCode(numeric);
 	}
+
+	@Override
+	public String toString() { return toStringISO(); }
 }

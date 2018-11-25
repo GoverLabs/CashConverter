@@ -22,17 +22,31 @@ public class CodeUtils {
 		}
     }
 
-    public static List<String> getAvailableCurrencyCodes(boolean sortByName) {
-    	ArrayList<String> codeList = new ArrayList<String>();
+    public static List<CurrencyCode> getAvailableCurrencyCodes(boolean sortByName) {
+    	ArrayList<CurrencyCode> codeList = new ArrayList<CurrencyCode>();
 
 	    for (com.neovisionaries.i18n.CurrencyCode currency : com.neovisionaries.i18n.CurrencyCode.values()) {
-		    codeList.add(currency.getName());
+		    codeList.add(new CurrencyCode(currency));
 	    }
 
-	    if(sortByName) {
-		    Collections.sort(codeList);
-	    }
+//	    if(sortByName) {
+//		    Collections.sort(codeList);
+//	    }
 
 	    return codeList;
     }
+
+	public static List<CountryCode> getAvailableCountryCodes(boolean sortByName) {
+		ArrayList<CountryCode> codeList = new ArrayList<CountryCode>();
+
+		for (com.neovisionaries.i18n.CountryCode country : com.neovisionaries.i18n.CountryCode.values()) {
+			codeList.add(new CountryCode(country.getAlpha2()));
+		}
+
+//	    if(sortByName) {
+//		    Collections.sort(codeList);
+//	    }
+
+		return codeList;
+	}
 }
