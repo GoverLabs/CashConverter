@@ -37,4 +37,7 @@ public class CountryCode {
 	public CountryCode(int numeric) {
 		this.code = com.neovisionaries.i18n.CountryCode.getByCode(numeric);
 	}
+
+	@Override
+	public String toString() { return this.code.getName(); }
 }
