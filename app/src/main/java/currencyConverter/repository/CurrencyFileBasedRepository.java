@@ -11,12 +11,17 @@ import currencyConverter.model.CurrencyRate;
 public class CurrencyFileBasedRepository implements ICurrencyRateModelRepository {
 
     private static final String FILE_NAME = "CurrencyRate.json";
+    private File directory;
+
+    public CurrencyFileBasedRepository() {
+//        this.directory = this.getFileDirectory();
+    }
 
     @Override
     public CurrencyRate create(CurrencyRate model) throws CurrencyRateFetchingException {
         try {
             if (model != null) {
-                File file = new File(FILE_NAME);
+                File file = new File(directory, FILE_NAME);
                 if (!file.exists()) {
                     file.createNewFile();
                 }
@@ -30,7 +35,7 @@ public class CurrencyFileBasedRepository implements ICurrencyRateModelRepository
 
     @Override
     public CurrencyRate update(CurrencyRate model) throws CurrencyRateFetchingException {
-        File file = new File(FILE_NAME);
+        File file = new File(directory, FILE_NAME);
         if (file.exists()) {
             file.delete();
         }
@@ -40,7 +45,7 @@ public class CurrencyFileBasedRepository implements ICurrencyRateModelRepository
     @Override
     public CurrencyRate load() {
         CurrencyRate currencyRate = null;
-        File file = new File(FILE_NAME);
+        File file = new File(directory, FILE_NAME);
         if (file.exists()) {
             try {
                 currencyRate = new ObjectMapper().readValue(file, CurrencyRate.class);
@@ -53,9 +58,18 @@ public class CurrencyFileBasedRepository implements ICurrencyRateModelRepository
 
     @Override
     public void clear() {
-        File file = new File(FILE_NAME);
+        File file = new File(directory, FILE_NAME);
         if (file.exists()) {
             file.delete();
         }
     }
+
+//    private File getFileDirectory() {
+//        final String appDirectoryName = BuildConfig.APPLICATION_ID;
+//        File file = new File(, appDirectoryName);
+//        if (!file.exists()) {
+//            file.mkdir();
+//        }
+//        return file;
+//    }
 }

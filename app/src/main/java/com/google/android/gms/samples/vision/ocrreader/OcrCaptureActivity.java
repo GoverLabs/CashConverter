@@ -49,6 +49,7 @@ import com.google.android.gms.vision.text.TextBlock;
 
 import java.io.IOException;
 
+import currencyConverter.service.CurrencyConverter;
 import frameProcessor.detector.NumberDetector;
 import frameProcessor.processor.FrameProcessor;
 import frameProcessor.processor.IFrameProcessor;
@@ -120,6 +121,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
             button.setOnClickListener(new CameraButtonListener(
                     (IFrameProcessor) this.frameProcessor, cameraUnCaptureView, textViewResult));
         }
+        CurrencyConverter.getInstance().initialize();
     }
 
     /**

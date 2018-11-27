@@ -41,6 +41,18 @@ class CurrencyRatesProvider implements ICurrencyRatesProvider {
     @Override
     public Double getCurrencyRate(CurrencyCode currencyCode) throws CurrencyRateFetchingException {
         if (!this.isCacheAvailable()) {
+            this.initialize();
+        }
+        Currency currency = this.exchangeRateMap.get(currencyCode);
+        if (currency == null) {
+            throw new CurrencyRateFetchingException("Can not fetch data");
+        }
+        return currency.getRate();
+    }
+
+    @Override
+    public void initialize() throws CurrencyRateFetchingException {
+        if (!this.isCacheAvailable()) {
             CurrencyRate currencyRate = this.currencyRateModelRepository.load();
             if (currencyRate == null) {
                 currencyRate = this.currencyRateModelRepository.create(this.fetchLatestAvailableRates());
@@ -49,11 +61,6 @@ class CurrencyRatesProvider implements ICurrencyRatesProvider {
             }
             this.updateLocalCache(currencyRate);
         }
-        Currency currency = this.exchangeRateMap.get(currencyCode);
-        if (currency == null) {
-            throw new CurrencyRateFetchingException("Can not fetch data");
-        }
-        return currency.getRate();
     }
 
     private boolean isCacheAvailable() {
@@ -93,7 +100,9 @@ class CurrencyRatesProvider implements ICurrencyRatesProvider {
 
     private void updateLocalCache(CurrencyRate currencyRate) {
         for (Currency currency : currencyRate.getExchangeRate()) {
-            this.exchangeRateMap.put(currency.getCurrency(), currency);
+            if (currency != null && currency.getCurrency() != null && currency.getCurrency().getCode() != null) {
+                this.exchangeRateMap.put(currency.getCurrency(), currency);
+            }
         }
     }
 }
