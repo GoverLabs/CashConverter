@@ -32,7 +32,7 @@ public class CurrencyFileBasedRepository implements ICurrencyRateModelRepository
 
     @Override
     public CurrencyRate update(CurrencyRate model) throws CurrencyRateFetchingException {
-        File file = new File(FILE_NAME);
+        File file = new File(ContextSingleton.getInstance().getContext().getFilesDir(), FILE_NAME);
         if (file.exists()) {
             file.delete();
         }
@@ -42,7 +42,7 @@ public class CurrencyFileBasedRepository implements ICurrencyRateModelRepository
     @Override
     public CurrencyRate load() {
         CurrencyRate currencyRate = null;
-        File file = new File(FILE_NAME);
+        File file = new File(ContextSingleton.getInstance().getContext().getFilesDir(), FILE_NAME);
         if (file.exists()) {
             try {
                 currencyRate = new ObjectMapper().readValue(file, CurrencyRate.class);
@@ -55,7 +55,7 @@ public class CurrencyFileBasedRepository implements ICurrencyRateModelRepository
 
     @Override
     public void clear() {
-        File file = new File(FILE_NAME);
+        File file = new File(ContextSingleton.getInstance().getContext().getFilesDir(), FILE_NAME);
         if (file.exists()) {
             file.delete();
         }

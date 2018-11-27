@@ -51,6 +51,7 @@ import java.io.IOException;
 
 import currencyConverter.service.CurrencyConverter;
 import activity.ContextSingleton;
+import currencyConverter.service.ServiceFactory;
 import frameProcessor.detector.NumberDetector;
 import frameProcessor.processor.FrameProcessor;
 import frameProcessor.processor.IFrameProcessor;
@@ -139,7 +140,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
             button.setOnClickListener(new CameraButtonListener(
                     (IFrameProcessor) this.frameProcessor, cameraUnCaptureView, textViewResult));
         }
-        CurrencyConverter.getInstance().initialize();
+        ServiceFactory.createCurrencyConverter().initialize();
     }
 
     /**

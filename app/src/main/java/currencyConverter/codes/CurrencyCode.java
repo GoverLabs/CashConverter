@@ -8,6 +8,9 @@ public class CurrencyCode {
         this.code = code;
     }
 
+    public CurrencyCode() {
+    }
+
     public void setCode(com.neovisionaries.i18n.CurrencyCode code) {
         this.code = code;
     }

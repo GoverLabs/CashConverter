@@ -37,7 +37,7 @@ public class CurrencyConverter implements ICurrencyConverter {
                 try {
                     CurrencyConverter.this.currencyRatesProvider.initialize();
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    //Just Ignore It
                 }
             }
         });

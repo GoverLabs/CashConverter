@@ -7,6 +7,6 @@ public class ServiceFactory {
 	}
 
 	public static ICurrencyConverter createCurrencyConverter() {
-		return new CurrencyConverter();
+		return CurrencyConverter.getInstance();
 	}
 }
