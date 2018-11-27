@@ -22,4 +22,5 @@
     <string name="dark_theme">Dark theme</string>
     <string name="save_and_exit"><![CDATA[Save & Exit]]></string>
     <string name="currency_autodetection">Detect currency automaticly</string>
+    <string name="you_currency_is">You currency is</string>
 </resources>

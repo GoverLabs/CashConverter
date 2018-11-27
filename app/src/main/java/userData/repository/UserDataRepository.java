@@ -1,4 +1,4 @@
-package currencyConverter.repository;
+package userData.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -6,15 +6,14 @@ import java.io.File;
 import java.io.IOException;
 
 import activity.ContextSingleton;
-import currencyConverter.exception.CountryFethchingException;
-import currencyConverter.model.CountryModel;
+import userData.UserData;
 
-public class CountryRepository implements ICountryRepository {
+public class UserDataRepository implements IUserDataRepository {
 
-	private static final String FILE_NAME = "CountryModel.json";
+	private static final String FILE_NAME = "UserData.json";
 
 	@Override
-	public void create(CountryModel model) throws CountryFethchingException {
+	public void create(UserData model) {
 
 		File file = new File(ContextSingleton.getInstance().getContext().getFilesDir(), FILE_NAME);
 		try {
@@ -27,31 +26,30 @@ public class CountryRepository implements ICountryRepository {
 				}
 				else {
 					file.delete();
-					throw new CountryFethchingException();
 				}
 			}
 
 		} catch (IOException e) {
-			throw new CountryFethchingException(e);
+
 		}
 	}
 
 	@Override
-	public void update(CountryModel model) throws CountryFethchingException {
+	public void update(UserData model) {
 		clear();
 		create(model);
 	}
 
 	@Override
-	public CountryModel load() {
+	public UserData load() {
 
-		CountryModel model = null;
+		UserData model = null;
 
 		File file = new File(FILE_NAME);
 		if (file.exists()) {
 
 			try {
-				model = new ObjectMapper().readValue(file, CountryModel.class);
+				model = new ObjectMapper().readValue(file, UserData.class);
 			} catch (IOException e) {
 				//Just ignore it
 			}

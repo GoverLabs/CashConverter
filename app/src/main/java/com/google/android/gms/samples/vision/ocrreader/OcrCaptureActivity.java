@@ -50,11 +50,15 @@ import com.google.android.gms.vision.text.TextBlock;
 import java.io.IOException;
 
 import currencyConverter.service.CurrencyConverter;
+import activity.ContextSingleton;
 import frameProcessor.detector.NumberDetector;
 import frameProcessor.processor.FrameProcessor;
 import frameProcessor.processor.IFrameProcessor;
 import listeners.AnonymousListener;
 import listeners.CameraButtonListener;
+import userData.UserData;
+import userData.repository.IUserDataRepository;
+import userData.repository.UserDataRepository;
 
 /**
  * Activity for the Ocr Detecting app.  This app detects text and displays the value with the
@@ -77,9 +81,15 @@ public final class OcrCaptureActivity extends AppCompatActivity {
     private EditText editboxPrice;
     private Detector<TextBlock> frameProcessor;
 
+    private UserData userData;
+    private IUserDataRepository userDataRepository;
+
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
+
+        ContextSingleton.init(getApplicationContext());
+
         setContentView(R.layout.act_main);
 
         preview = (CameraSourcePreview) findViewById(R.id.preview);
@@ -107,7 +117,15 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         });
         this.frameProcessor.setProcessor(numberDetector);
 
-        // Check for the camera permission before accessing the camera.  If the
+		this.userDataRepository = new UserDataRepository();
+	    this.userData = this.userDataRepository.load();
+
+	    if(this.userData == null) {
+	    	this.userData = new UserData();
+	    	this.userDataRepository.create(this.userData);
+	    }
+
+	    // Check for the camera permission before accessing the camera.  If the
         // permission is not granted yet, request permission.
         int rc = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         if (rc == PackageManager.PERMISSION_GRANTED) {
@@ -302,7 +320,8 @@ public final class OcrCaptureActivity extends AppCompatActivity {
 
     public void onClickSettings(View view) {
         Intent intent = new Intent(this, PreferencesActivity.class);
-        startActivity(intent);
+        intent.putExtra("EXTRA_USER_DATA", this.userData);
+	    startActivityForResult(intent, 1);
     }
 
     public void onClickEditPrice(View view) {
@@ -315,4 +334,12 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         layoutButtons.setVisibility(View.VISIBLE);
         editboxPrice.setVisibility(View.GONE);
     }
+
+    @Override
+	public void onActivityResult(int requestCode, int resultCode, Intent dataIntent) {
+        UserData newData = dataIntent.getParcelableExtra("EXTRA_USER_DATA");
+
+        this.userData = newData;
+        this.userDataRepository.update(newData);
+	}
 }

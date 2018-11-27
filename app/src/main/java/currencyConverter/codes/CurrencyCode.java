@@ -8,10 +8,6 @@ public class CurrencyCode {
         this.code = code;
     }
 
-    public com.neovisionaries.i18n.CurrencyCode getCode() {
-        return this.code;
-    }
-
     public void setCode(com.neovisionaries.i18n.CurrencyCode code) {
         this.code = code;
     }
@@ -31,6 +27,25 @@ public class CurrencyCode {
     public String toStringISO() {
         return this.code.getName();
     }
+
+	/**
+	 * For SR only
+	 */
+    public com.neovisionaries.i18n.CurrencyCode getCode() {
+        return this.code;
+    }
+
+	/**
+	 * Constructs country code from string format
+	 *
+	 * @param numeric country code in numeric format
+	 */
+	public CurrencyCode(int numeric) {
+		this.code = com.neovisionaries.i18n.CurrencyCode.getByCode(numeric);
+	}
+
+	@Override
+	public String toString() { return toStringISO(); }
 
     @Override
     public boolean equals(Object o) {

@@ -29,6 +29,18 @@
         android:textSize="18sp" />
 
     <Spinner
+        android:id="@+id/currentCountrySpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/you_currency_is"
+        android:textSize="18sp" />
+
+    <Spinner
         android:id="@+id/currentCurrencySpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
