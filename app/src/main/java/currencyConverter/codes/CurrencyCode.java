@@ -1,12 +1,17 @@
 package currencyConverter.codes;
 
-import currencyConverter.model.Currency;
-
 public class CurrencyCode {
 
     private com.neovisionaries.i18n.CurrencyCode code;
 
     CurrencyCode(com.neovisionaries.i18n.CurrencyCode code) {
+        this.code = code;
+    }
+
+    public CurrencyCode() {
+    }
+
+    public void setCode(com.neovisionaries.i18n.CurrencyCode code) {
         this.code = code;
     }
 
@@ -44,4 +49,17 @@ public class CurrencyCode {
 
 	@Override
 	public String toString() { return toStringISO(); }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CurrencyCode that = (CurrencyCode) o;
+        return this.code.getNumeric() == that.code.getNumeric();
+    }
+
+    @Override
+    public int hashCode() {
+        return 114 ^ 12 << 3 + this.code.getNumeric();
+    }
 }

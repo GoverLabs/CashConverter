@@ -6,4 +6,5 @@ import currencyConverter.codes.CurrencyCode;
 interface ICurrencyRatesProvider {
 
     Double getCurrencyRate(CurrencyCode currencyCode) throws CurrencyRateFetchingException;
+    void initialize() throws CurrencyRateFetchingException;
 }
