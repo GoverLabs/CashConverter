@@ -49,8 +49,12 @@ import com.google.android.gms.vision.text.TextBlock;
 
 import java.io.IOException;
 
+import currencyConverter.codes.CurrencyCode;
+import currencyConverter.exception.CurrencyRateFetchingException;
+import currencyConverter.model.Currency;
 import currencyConverter.service.CurrencyConverter;
 import activity.ContextSingleton;
+import currencyConverter.service.ICurrencyConverter;
 import currencyConverter.service.ServiceFactory;
 import frameProcessor.detector.NumberDetector;
 import frameProcessor.processor.FrameProcessor;
@@ -106,10 +110,10 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         numberDetector.setOnNumberDetectedListener(new AnonymousListener() {
 
             @Override
-            public void onEvent(final String result) {
+            public void onEvent(final double result) {
                 textViewResult.post(new Runnable() {
                     public void run() {
-                        textViewResult.setText("$ " + result);
+                        textViewResult.setText(convertDetectedPrice(result));
                         ((IFrameProcessor) frameProcessor).setAvailability(false);
                         cameraUnCaptureView.setVisibility(View.VISIBLE);
                     }
@@ -342,5 +346,27 @@ public final class OcrCaptureActivity extends AppCompatActivity {
 
         this.userData = newData;
         this.userDataRepository.update(newData);
+	}
+
+	private String convertDetectedPrice(double price) {
+		CurrencyCode sourceCurrency = userData.getCurrentCurrency();
+		CurrencyCode targetCurrency = userData.getNativeCurrency();
+
+		ICurrencyConverter converter = ServiceFactory.createCurrencyConverter();
+
+		double convertedPrice = 0.0;
+		try {
+			convertedPrice = converter.convert(sourceCurrency, targetCurrency, price);
+		} catch (CurrencyRateFetchingException e) {
+			e.printStackTrace();
+		}
+
+		return String.format(
+				"%s %f => %s %f"
+			,   sourceCurrency.toStringISO()
+			,   price
+			,   targetCurrency.toStringISO()
+			,   convertedPrice
+		);
 	}
 }

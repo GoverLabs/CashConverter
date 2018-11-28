@@ -2,5 +2,5 @@ package listeners;
 
 public interface AnonymousListener {
 
-    void onEvent(String result);
+    void onEvent(double result);
 }
