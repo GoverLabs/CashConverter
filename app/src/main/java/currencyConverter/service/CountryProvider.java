@@ -75,7 +75,7 @@ class CountryProvider implements ICountryProvider {
 		}
 
 		CountryModel countryModel = new CountryModel();
-		countryModel.setCurrentCountry(new CountryCode(countryCode));
+		countryModel.setCurrentCountry(CountryCode.fromStringISO(countryCode));
 		countryModel.setDate(new Date());
 
 		return countryModel;

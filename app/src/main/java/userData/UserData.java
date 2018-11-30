@@ -16,30 +16,18 @@ public class UserData implements Parcelable {
 	private boolean autodetectionEnabled;
 
 	public UserData() {
-		this.currentCountry = new CountryCode("USA");
-		this.nativeCurrency = new CurrencyCode("USD");
-		this.currentCurrency = new CurrencyCode("USD");
+		this.currentCountry = CountryCode.Undefined;
+		this.nativeCurrency = CurrencyCode.Undefined;
+		this.currentCurrency = CurrencyCode.Undefined;
 		this.autodetectionEnabled = true;
 	}
 
 	protected UserData(Parcel in) {
-		this.currentCountry = new CountryCode(in.readInt());
-		this.nativeCurrency = new CurrencyCode(in.readInt());
-		this.currentCurrency = new CurrencyCode(in.readInt());
+		this.currentCountry = CountryCode.values()[in.readInt()];
+		this.nativeCurrency = CurrencyCode.values()[in.readInt()];
+		this.currentCurrency = CurrencyCode.values()[in.readInt()];
 		this.autodetectionEnabled = ( in.readByte() != 0 );
 	}
-
-	public static final Creator<UserData> CREATOR = new Creator<UserData>() {
-		@Override
-		public UserData createFromParcel(Parcel in) {
-			return new UserData(in);
-		}
-
-		@Override
-		public UserData[] newArray(int size) {
-			return new UserData[size];
-		}
-	};
 
 	public CountryCode getCurrentCountry() {
 		return currentCountry;
@@ -73,6 +61,18 @@ public class UserData implements Parcelable {
 		this.autodetectionEnabled = autodetectionEnabled;
 	}
 
+	public static final Creator<UserData> CREATOR = new Creator<UserData>() {
+		@Override
+		public UserData createFromParcel(Parcel in) {
+			return new UserData(in);
+		}
+
+		@Override
+		public UserData[] newArray(int size) {
+			return new UserData[size];
+		}
+	};
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -80,9 +80,9 @@ public class UserData implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeInt(currentCountry.getCode().getNumeric());
-		dest.writeInt(nativeCurrency.getCode().getNumeric());
-		dest.writeInt(currentCurrency.getCode().getNumeric());
+		dest.writeInt(currentCountry.ordinal());
+		dest.writeInt(nativeCurrency.ordinal());
+		dest.writeInt(currentCurrency.ordinal());
 		dest.writeByte((byte) (autodetectionEnabled ? 1 : 0));
 	}
 }

@@ -25,7 +25,7 @@ public class CurrencyRateConverter implements ICurrencyRateConverter {
             try {
                 Currency currency = new Currency();
                 if (currencyDTO.getCurrency() != null) {
-                    currency.setCurrency(new CurrencyCode(currencyDTO.getCurrency()));
+                    currency.setCurrency(CurrencyCode.fromStringISO(currencyDTO.getCurrency()));
                 }
                 if (currencyDTO.getPurchaseRateNB() != null) {
                     currency.setRate(Double.parseDouble(currencyDTO.getPurchaseRateNB()));
