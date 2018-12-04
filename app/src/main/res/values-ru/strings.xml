@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ok">OK</string>
+    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
+    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
+    <string name="low_storage_error">Ocr dependencies cannot be downloaded due to low device storage</string>
+    <string name="title_activity_main">Ocr Detector Sample</string>
+    <string name="ocr_header">Click &quot;Detect Text&quot; to detect text</string>
+    <string name="read_text">Detect Text</string>
+    <string name="auto_focus">Auto Focus</string>
+    <string name="use_flash">Use Flash</string>
+    <string name="ocr_success">Text read successfully</string>
+    <string name="ocr_failure">No text captured</string>
+    <string name="ocr_error">"Error reading text: %1$s"</string>
+    <string name="settings">Настройки</string>
+    <string name="convert">Конвертировать</string>
+    <string name="edit">Редактировать</string>
+    <string name="hint">Напишите цену здесь, если автоматическое распознавание не сработало</string>
+    <string name="native_currency">Ваша исходная валюта</string>
+    <string name="current_currency">Ваша текущая страна</string>
+    <string name="light_theme">Светлая тема</string>
+    <string name="dark_theme">Темная тема</string>
+    <string name="save_and_exit"><![CDATA[Сохранить и выйти]]></string>
+    <string name="currency_autodetection">Распознавать валюту автоматически</string>
+    <string name="you_currency_is">Ваша текущая валюта</string>
+</resources>
