@@ -38,7 +38,7 @@ public enum CurrencyCode {
      *
      * @param stringISO currency code in ISO 4217 format
      */
-    private CurrencyCode(String stringISO) {
+    CurrencyCode(String stringISO) {
 	    this.stringISO = stringISO;
     }
 

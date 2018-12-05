@@ -1,7 +1,5 @@
 package currencyConverter.codes;
 
-import android.util.Log;
-
 public enum CountryCode {
 
 	Undefined("NULL", CurrencyCode.Undefined),
@@ -74,7 +72,7 @@ public enum CountryCode {
      * Constructs country code from string format
      *
      * @param stringISO country code in ISO 3166-1 alpha-2 format
-     * @param currency
+     * @param currency countries native currency
      */
     CountryCode(String stringISO, CurrencyCode currency) {
     	this.stringISO = stringISO;

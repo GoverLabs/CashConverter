@@ -80,7 +80,7 @@ public class PreferencesActivity extends AppCompatActivity {
 
 						currentCurrencySpinner.setEnabled(!isChecked);
 						currentCountrySpinner.setEnabled(!isChecked);
-						userData.setAutodetectionEnabled(isChecked);
+						userData.isAutodetectionEnabled = isChecked;
 
 						if(isChecked) {
 							onAutoDetectionEnabled();
@@ -94,7 +94,7 @@ public class PreferencesActivity extends AppCompatActivity {
 	    nativeCurrencySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 		    @Override
 		    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-			    userData.setNativeCurrency(currencyAdapter.getItem(position));
+			    userData.nativeCurrency = currencyAdapter.getItem(position);
 		    }
 
 		    @Override
@@ -127,9 +127,9 @@ public class PreferencesActivity extends AppCompatActivity {
 		    }
 	    });
 
-	    userData = getIntent().getParcelableExtra("EXTRA_USER_DATA");
+	    userData = (UserData) getIntent().getSerializableExtra("EXTRA_USER_DATA");
 
-	    if(userData.isAutodetectionEnabled()) {
+	    if(userData.isAutodetectionEnabled) {
 		    currencyAutoDetectCheckBox.setChecked(true);
 		    onAutoDetectionEnabled();
 	    } else {
@@ -137,9 +137,9 @@ public class PreferencesActivity extends AppCompatActivity {
 		    onAutoDetectionDisabled();
 	    }
 
-	    nativeCurrencySpinner.setSelection(currencyAdapter.getPosition(userData.getNativeCurrency()));
-	    currentCurrencySpinner.setSelection(currencyAdapter.getPosition(userData.getCurrentCurrency()));
-	    currentCountrySpinner.setSelection(countryAdapter.getPosition(userData.getCurrentCountry()));
+	    nativeCurrencySpinner.setSelection(currencyAdapter.getPosition(userData.nativeCurrency));
+	    currentCurrencySpinner.setSelection(currencyAdapter.getPosition(userData.currentCurrency));
+	    currentCountrySpinner.setSelection(countryAdapter.getPosition(userData.currentCountry));
     }
 
     private void onAutoDetectionEnabled() {
@@ -166,12 +166,12 @@ public class PreferencesActivity extends AppCompatActivity {
 
     private void updateCurrentCurrency(CurrencyCode code) {
 	    currentCurrencySpinner.setSelection(currencyAdapter.getPosition(code));
-	    userData.setCurrentCurrency(code);
+	    userData.currentCurrency = code;
     }
 
     private void updateCurrentCountry(CountryCode code) {
 	    currentCountrySpinner.setSelection(countryAdapter.getPosition(code));
-	    userData.setCurrentCountry(code);
+	    userData.currentCountry = code;
 
 	    updateCurrentCurrency(code.getCurrency());
     }

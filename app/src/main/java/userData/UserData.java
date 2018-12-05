@@ -1,25 +1,21 @@
 package userData;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import currencyConverter.codes.CountryCode;
 import currencyConverter.codes.CurrencyCode;
 
 public class UserData implements Parcelable {
 
-	private CountryCode currentCountry;
+	public CountryCode currentCountry;
+	public CurrencyCode nativeCurrency;
+	public CurrencyCode currentCurrency;
 
-	private CurrencyCode nativeCurrency;
-	private CurrencyCode currentCurrency;
-
-	private boolean autodetectionEnabled;
+	public boolean isAutodetectionEnabled;
 
 	public UserData() {
 		this.currentCountry = CountryCode.Undefined;
 		this.nativeCurrency = CurrencyCode.Undefined;
 		this.currentCurrency = CurrencyCode.Undefined;
-		this.autodetectionEnabled = true;
+		this.isAutodetectionEnabled = true;
 	}
 
 	protected UserData(Parcel in) {
