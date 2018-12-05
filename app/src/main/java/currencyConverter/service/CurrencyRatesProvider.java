@@ -17,6 +17,7 @@ import currencyConverter.converter.ICurrencyRateConverter;
 import currencyConverter.dto.CurrencyRateDTO;
 import currencyConverter.exception.CurrencyRateFetchingException;
 import currencyConverter.codes.CurrencyCode;
+import currencyConverter.exception.NoInternetException;
 import currencyConverter.model.Currency;
 import currencyConverter.model.CurrencyRate;
 import currencyConverter.repository.CurrencyFileBasedRepository;
@@ -100,7 +101,7 @@ class CurrencyRatesProvider implements ICurrencyRatesProvider {
 
     private void updateLocalCache(CurrencyRate currencyRate) {
         for (Currency currency : currencyRate.getExchangeRate()) {
-            if (currency != null && currency.getCurrency() != null && currency.getCurrency().getCode() != null) {
+            if (currency != null && currency.getCurrency() != null ) {
                 this.exchangeRateMap.put(currency.getCurrency(), currency);
             }
         }

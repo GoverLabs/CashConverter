@@ -15,6 +15,7 @@ local.properties
 .signing/
 
 # User-specific configurations
+app/app.iml
 *.iml
 app/app.iml
 converter.iml

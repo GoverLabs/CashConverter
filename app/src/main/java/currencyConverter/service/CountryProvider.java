@@ -15,6 +15,7 @@ import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 
+import activity.ContextSingleton;
 import currencyConverter.exception.CountryFethchingException;
 import currencyConverter.model.CountryModel;
 import currencyConverter.codes.CountryCode;
@@ -29,12 +30,23 @@ class CountryProvider implements ICountryProvider {
 
     private CountryCode currentCountry;
 
+	private static ICountryProvider instance;
+
+	static ICountryProvider getInstance() {
+		if (instance == null) {
+			instance = new CountryProvider();
+		}
+		return instance;
+	}
+
     CountryProvider() {
     	this.countryRepository = new CountryRepository();
 	}
 
     @Override
-    public CountryCode getCurrentCountry(Context context) throws CountryFethchingException {
+    public CountryCode getCurrentCountry() throws CountryFethchingException {
+
+	    Context context = ContextSingleton.getInstance().getContext();
 
 		if(!this.isCacheAvailable()) {
 			CountryModel countryModel = this.countryRepository.load();
@@ -75,7 +87,7 @@ class CountryProvider implements ICountryProvider {
 		}
 
 		CountryModel countryModel = new CountryModel();
-		countryModel.setCurrentCountry(new CountryCode(countryCode));
+		countryModel.setCurrentCountry(CountryCode.fromStringISO(countryCode));
 		countryModel.setDate(new Date());
 
 		return countryModel;

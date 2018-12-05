@@ -49,8 +49,10 @@ import com.google.android.gms.vision.text.TextBlock;
 
 import java.io.IOException;
 
-import currencyConverter.service.CurrencyConverter;
+import currencyConverter.codes.CurrencyCode;
+import currencyConverter.exception.CurrencyRateFetchingException;
 import activity.ContextSingleton;
+import currencyConverter.service.ICurrencyConverter;
 import currencyConverter.service.ServiceFactory;
 import frameProcessor.detector.NumberDetector;
 import frameProcessor.processor.FrameProcessor;
@@ -106,10 +108,10 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         numberDetector.setOnNumberDetectedListener(new AnonymousListener() {
 
             @Override
-            public void onEvent(final String result) {
+            public void onEvent(final double result) {
                 textViewResult.post(new Runnable() {
                     public void run() {
-                        textViewResult.setText("$ " + result);
+                        textViewResult.setText(convertDetectedPrice(result));
                         ((IFrameProcessor) frameProcessor).setAvailability(false);
                         cameraUnCaptureView.setVisibility(View.VISIBLE);
                     }
@@ -118,12 +120,12 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         });
         this.frameProcessor.setProcessor(numberDetector);
 
-		this.userDataRepository = new UserDataRepository();
-	    this.userData = this.userDataRepository.load();
+		userDataRepository = new UserDataRepository();
+	    userData = userDataRepository.load();
 
-	    if(this.userData == null) {
-	    	this.userData = new UserData();
-	    	this.userDataRepository.create(this.userData);
+	    if(userData == null) {
+	    	userData = new UserData();
+	    	userDataRepository.create(userData);
 	    }
 
 	    // Check for the camera permission before accessing the camera.  If the
@@ -338,9 +340,33 @@ public final class OcrCaptureActivity extends AppCompatActivity {
 
     @Override
 	public void onActivityResult(int requestCode, int resultCode, Intent dataIntent) {
-        UserData newData = dataIntent.getParcelableExtra("EXTRA_USER_DATA");
+        UserData newData = (UserData) dataIntent.getSerializableExtra("EXTRA_USER_DATA");
 
-        this.userData = newData;
-        this.userDataRepository.update(newData);
+        userData = newData;
+        userDataRepository.update(newData);
+	}
+
+	private String convertDetectedPrice(double price) {
+		CurrencyCode sourceCurrency = userData.currentCurrency;
+		CurrencyCode targetCurrency = userData.nativeCurrency;
+
+		ICurrencyConverter converter = ServiceFactory.createCurrencyConverter();
+
+		double convertedPrice = 0.0;
+		try {
+			convertedPrice = converter.convert(sourceCurrency, targetCurrency, price);
+		} catch (CurrencyRateFetchingException e) {
+		    // TODO add error message
+
+			return "";
+		}
+
+		return String.format(
+				"%s %f => %s %f"
+			,   sourceCurrency.toStringISO()
+			,   price
+			,   targetCurrency.toStringISO()
+			,   convertedPrice
+		);
 	}
 }

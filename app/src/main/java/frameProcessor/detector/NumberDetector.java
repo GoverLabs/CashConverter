@@ -47,8 +47,8 @@ public class NumberDetector implements Detector.Processor<TextBlock> {
             if (item != null && item.getValue() != null) {
                 Log.d("Processor", "Text detected! " + item.getValue());
                 String text = item.getValue().replaceAll("[^0-9?!.]", "");
-                if (text.length() > 0) {
-                    this.listener.onEvent(text + "--> " + String.valueOf(Double.parseDouble(text) / 28));
+                if (!text.isEmpty()) {
+                    this.listener.onEvent(Double.parseDouble(text));
                 }
             }
         }

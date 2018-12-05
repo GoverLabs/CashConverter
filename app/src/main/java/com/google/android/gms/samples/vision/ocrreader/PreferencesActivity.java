@@ -12,38 +12,37 @@ import android.widget.Spinner;
 
 import java.util.Comparator;
 
-import currencyConverter.codes.CodeUtils;
 import currencyConverter.codes.CountryCode;
 import currencyConverter.codes.CurrencyCode;
 import currencyConverter.exception.CountryFethchingException;
-import currencyConverter.exception.CurrencyCodeFetchingException;
 import currencyConverter.service.ICountryProvider;
 import currencyConverter.service.ServiceFactory;
 import userData.UserData;
 
 public class PreferencesActivity extends AppCompatActivity {
 
-	private Spinner nativeCurrencySpinner;
 	private Spinner currentCountrySpinner;
 	private Spinner currentCurrencySpinner;
-	private CheckBox currencyAutoDetectCheckBox;
 
 	private UserData userData;
+
+	private ArrayAdapter<CurrencyCode> currencyAdapter;
+	private ArrayAdapter<CountryCode> countryAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_preferences);
 
-	    nativeCurrencySpinner = (Spinner) findViewById(R.id.nativeCurrencySpinner);
+	    Spinner nativeCurrencySpinner = (Spinner) findViewById(R.id.nativeCurrencySpinner);
 		currentCountrySpinner = (Spinner) findViewById(R.id.currentCountrySpinner);
 	    currentCurrencySpinner = (Spinner) findViewById(R.id.currentCurrencySpinner);
-	    currencyAutoDetectCheckBox = (CheckBox) findViewById(R.id.checkBox);
+	    CheckBox currencyAutoDetectCheckBox = (CheckBox) findViewById(R.id.checkBox);
 
-	    final ArrayAdapter<CurrencyCode> currencyAdapter = new ArrayAdapter<CurrencyCode>(
+	    currencyAdapter = new ArrayAdapter<>(
 			    this,
 			    android.R.layout.simple_spinner_item,
-			    CodeUtils.getAvailableCurrencyCodes()
+			    CurrencyCode.values()
 	    );
 	    currencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    currencyAdapter.sort(
@@ -57,10 +56,10 @@ public class PreferencesActivity extends AppCompatActivity {
 	    nativeCurrencySpinner.setAdapter(currencyAdapter);
 	    currentCurrencySpinner.setAdapter(currencyAdapter);
 
-	    final ArrayAdapter<CountryCode> countryAdapter = new ArrayAdapter<CountryCode>(
+	    countryAdapter = new ArrayAdapter<>(
 			    this,
 			    android.R.layout.simple_spinner_item,
-			    CodeUtils.getAvailableCountryCodes()
+			    CountryCode.values()
 	    );
 	    countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    countryAdapter.sort(
@@ -79,9 +78,9 @@ public class PreferencesActivity extends AppCompatActivity {
 				    @Override
 				    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-						currentCurrencySpinner.setEnabled(isChecked);
-						currentCountrySpinner.setEnabled(isChecked);
-						userData.setAutodetectionEnabled(isChecked);
+						currentCurrencySpinner.setEnabled(!isChecked);
+						currentCountrySpinner.setEnabled(!isChecked);
+						userData.isAutodetectionEnabled = isChecked;
 
 						if(isChecked) {
 							onAutoDetectionEnabled();
@@ -95,7 +94,7 @@ public class PreferencesActivity extends AppCompatActivity {
 	    nativeCurrencySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 		    @Override
 		    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-			    userData.setNativeCurrency(currencyAdapter.getItem(position));
+			    userData.nativeCurrency = currencyAdapter.getItem(position);
 		    }
 
 		    @Override
@@ -107,7 +106,7 @@ public class PreferencesActivity extends AppCompatActivity {
 	    currentCountrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 		    @Override
 		    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-			    userData.setCurrentCountry(countryAdapter.getItem(position));
+			    updateCurrentCountry(countryAdapter.getItem(position));
 		    }
 
 		    @Override
@@ -119,7 +118,7 @@ public class PreferencesActivity extends AppCompatActivity {
 	    currentCurrencySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 		    @Override
 		    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-			    userData.setCurrentCurrency(currencyAdapter.getItem(position));
+			    updateCurrentCurrency(currencyAdapter.getItem(position));
 		    }
 
 		    @Override
@@ -128,9 +127,9 @@ public class PreferencesActivity extends AppCompatActivity {
 		    }
 	    });
 
-	    this.userData = (UserData) getIntent().getParcelableExtra("EXTRA_USER_DATA");
+	    userData = (UserData) getIntent().getSerializableExtra("EXTRA_USER_DATA");
 
-	    if(this.userData.isAutodetectionEnabled()) {
+	    if(userData.isAutodetectionEnabled) {
 		    currencyAutoDetectCheckBox.setChecked(true);
 		    onAutoDetectionEnabled();
 	    } else {
@@ -138,23 +137,18 @@ public class PreferencesActivity extends AppCompatActivity {
 		    onAutoDetectionDisabled();
 	    }
 
-	    this.nativeCurrencySpinner.setSelection(currencyAdapter.getPosition(this.userData.getNativeCurrency()));
-	    this.currentCurrencySpinner.setSelection(currencyAdapter.getPosition(this.userData.getCurrentCurrency()));
-	    this.currentCountrySpinner.setSelection(countryAdapter.getPosition(this.userData.getCurrentCountry()));
+	    nativeCurrencySpinner.setSelection(currencyAdapter.getPosition(userData.nativeCurrency));
+	    currentCurrencySpinner.setSelection(currencyAdapter.getPosition(userData.currentCurrency));
+	    currentCountrySpinner.setSelection(countryAdapter.getPosition(userData.currentCountry));
     }
 
     private void onAutoDetectionEnabled() {
 		ICountryProvider countryProvider = ServiceFactory.createCountryProvider();
 
 		try {
-			CountryCode currentCountry = countryProvider.getCurrentCountry(getApplicationContext());
-			CurrencyCode currencyCode = CodeUtils.getCurrencyFromCountry(currentCountry);
-
-			userData.setCurrentCountry(currentCountry);
-			userData.setCurrentCurrency(currencyCode);
+			CountryCode currentCountry = countryProvider.getCurrentCountry();
+			updateCurrentCountry(currentCountry);
 		} catch (CountryFethchingException e) {
-			e.printStackTrace();
-		} catch (CurrencyCodeFetchingException e) {
 			e.printStackTrace();
 		}
 	}
@@ -168,5 +162,17 @@ public class PreferencesActivity extends AppCompatActivity {
 	    intent.putExtra("EXTRA_USER_DATA", this.userData);
 	    setResult(RESULT_OK, intent);
 	    finish();
+    }
+
+    private void updateCurrentCurrency(CurrencyCode code) {
+	    currentCurrencySpinner.setSelection(currencyAdapter.getPosition(code));
+	    userData.currentCurrency = code;
+    }
+
+    private void updateCurrentCountry(CountryCode code) {
+	    currentCountrySpinner.setSelection(countryAdapter.getPosition(code));
+	    userData.currentCountry = code;
+
+	    updateCurrentCurrency(code.getCurrency());
     }
 }
