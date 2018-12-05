@@ -3,7 +3,7 @@ package currencyConverter.service;
 public class ServiceFactory {
 
 	public static ICountryProvider createCountryProvider() {
-		return new CountryProvider();
+		return CountryProvider.getInstance();
 	}
 
 	public static ICurrencyConverter createCurrencyConverter() {

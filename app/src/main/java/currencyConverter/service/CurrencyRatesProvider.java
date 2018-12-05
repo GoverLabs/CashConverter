@@ -17,6 +17,7 @@ import currencyConverter.converter.ICurrencyRateConverter;
 import currencyConverter.dto.CurrencyRateDTO;
 import currencyConverter.exception.CurrencyRateFetchingException;
 import currencyConverter.codes.CurrencyCode;
+import currencyConverter.exception.NoInternetException;
 import currencyConverter.model.Currency;
 import currencyConverter.model.CurrencyRate;
 import currencyConverter.repository.CurrencyFileBasedRepository;

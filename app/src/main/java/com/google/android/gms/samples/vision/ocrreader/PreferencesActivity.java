@@ -146,7 +146,7 @@ public class PreferencesActivity extends AppCompatActivity {
 		ICountryProvider countryProvider = ServiceFactory.createCountryProvider();
 
 		try {
-			CountryCode currentCountry = countryProvider.getCurrentCountry(getApplicationContext());
+			CountryCode currentCountry = countryProvider.getCurrentCountry();
 			updateCurrentCountry(currentCountry);
 		} catch (CountryFethchingException e) {
 			e.printStackTrace();

@@ -7,5 +7,5 @@ import currencyConverter.exception.CountryFethchingException;
 
 public interface ICountryProvider {
 
-    CountryCode getCurrentCountry(Context context) throws CountryFethchingException;
+    CountryCode getCurrentCountry() throws CountryFethchingException;
 }
