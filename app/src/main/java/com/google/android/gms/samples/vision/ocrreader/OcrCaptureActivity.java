@@ -356,9 +356,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
 		try {
 			convertedPrice = converter.convert(sourceCurrency, targetCurrency, price);
 		} catch (CurrencyRateFetchingException e) {
-			Snackbar.make(graphicOverlay, "Oh fuck, something is wrong",
-					Snackbar.LENGTH_LONG)
-					.show();
+		    // TODO add error message
 
 			return "";
 		}

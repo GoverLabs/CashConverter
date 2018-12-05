@@ -49,29 +49,8 @@ public enum CurrencyCode {
     	return stringISO;
     }
 
-//	/**
-//	 * Constructs country code from string format
-//	 *
-//	 * @param numeric country code in numeric format
-//	 */
-//	public CurrencyCode(int numeric) {
-//	}
-
 	@Override
 	public String toString() { return toStringISO(); }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        CurrencyCode that = (CurrencyCode) o;
-//        return this.code.getNumeric() == that.code.getNumeric();
-//    }
-
-//    @Override
-//    public int hashCode() {
-//        return 114 ^ 12 << 3 + this.code.getNumeric();
-//    }
 
 	public static CurrencyCode fromStringISO(String stringISO) {
 		CurrencyCode code = CurrencyCode.Undefined;

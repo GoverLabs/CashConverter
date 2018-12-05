@@ -86,15 +86,6 @@ public enum CountryCode {
         return this.stringISO;
     }
 
-//
-//	/**
-//	 * Constructs country code from string format
-//	 *
-//	 * @param numeric country code in numeric format
-//	 */
-//	public CountryCode(int numeric) {
-//	}
-
 	@Override
 	public String toString() { return toStringISO(); }
 
