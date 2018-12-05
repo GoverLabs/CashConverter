@@ -1,5 +1,6 @@
 # Built application files
 /*/build/
+build/
 
 # Crashlytics configuations
 com_crashlytics_export_strings.xml
@@ -15,6 +16,8 @@ local.properties
 
 # User-specific configurations
 *.iml
+app/app.iml
+converter.iml
 .idea/
 
 # OS-specific files
