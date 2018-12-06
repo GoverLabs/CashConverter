@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="ok">OK</string>
-    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
-    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
+    <string name="permission_request">Access to the camera, internet and location services is needed.</string>
+    <string name="no_permissions">This application cannot run because it does not have the required permission.  The application will now exit.</string>
     <string name="low_storage_error">Ocr dependencies cannot be downloaded due to low device storage</string>
     <string name="title_activity_main">Ocr Detector Sample</string>
     <string name="ocr_header">Click &quot;Detect Text&quot; to detect text</string>
@@ -21,6 +21,6 @@
     <string name="light_theme">Light theme</string>
     <string name="dark_theme">Dark theme</string>
     <string name="save_and_exit"><![CDATA[Save & Exit]]></string>
-    <string name="currency_autodetection">Detect currency automaticly</string>
+    <string name="currency_autodetection">Detect currency automatically</string>
     <string name="you_currency_is">You currency is</string>
 </resources>

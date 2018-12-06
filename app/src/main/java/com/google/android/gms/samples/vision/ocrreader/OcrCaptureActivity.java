@@ -15,22 +15,18 @@
  */
 package com.google.android.gms.samples.vision.ocrreader;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -63,19 +59,11 @@ import userData.UserData;
 import userData.repository.IUserDataRepository;
 import userData.repository.UserDataRepository;
 
-/**
- * Activity for the Ocr Detecting app.  This app detects text and displays the value with the
- * rear facing camera. During detection overlay graphics are drawn to indicate the position,
- * size, and contents of each TextBlock.
- */
 public final class OcrCaptureActivity extends AppCompatActivity {
     private static final String TAG = "OcrCaptureActivity";
 
     // Intent request code to handle updating play services if needed.
     private static final int RC_HANDLE_GMS = 9001;
-
-    // Permission request codes need to be < 256
-    private static final int RC_HANDLE_CAMERA_PERM = 2;
 
     private CameraSource cameraSource;
     private CameraSourcePreview preview;
@@ -86,6 +74,8 @@ public final class OcrCaptureActivity extends AppCompatActivity {
 
     private UserData userData;
     private IUserDataRepository userDataRepository;
+
+    private PermissionValidator permissionValidator;
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -120,6 +110,22 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         });
         this.frameProcessor.setProcessor(numberDetector);
 
+        editboxPrice.addTextChangedListener(
+		        new TextWatcher() {
+			        @Override
+			        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+			        @Override
+			        public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+			        @Override
+			        public void afterTextChanged(Editable s) {
+			        	double result = Double.parseDouble(s.toString());
+				        textViewResult.setText(convertDetectedPrice(result));
+			        }
+		        }
+        );
+
 		userDataRepository = new UserDataRepository();
 	    userData = userDataRepository.load();
 
@@ -128,68 +134,18 @@ public final class OcrCaptureActivity extends AppCompatActivity {
 	    	userDataRepository.create(userData);
 	    }
 
-	    // Check for the camera permission before accessing the camera.  If the
-        // permission is not granted yet, request permission.
-        int rc = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
-        if (rc == PackageManager.PERMISSION_GRANTED) {
-            initCameraSource();
-        } else {
-            requestCameraPermission();
-        }
+	    this.permissionValidator = new PermissionValidator(this, graphicOverlay);
+	    if(permissionValidator.arePermissionGranted()) {
+		    initCameraSource();
+	    }
 
         final Button button = (Button) findViewById(R.id.buttonConvert);
-        if (button != null) {
-            button.setOnClickListener(new CameraButtonListener(
-                    (IFrameProcessor) this.frameProcessor, cameraUnCaptureView, textViewResult));
-        }
+        button.setOnClickListener(new CameraButtonListener(
+                (IFrameProcessor) this.frameProcessor, cameraUnCaptureView, textViewResult));
+
         ServiceFactory.createCurrencyConverter().initialize();
     }
 
-    /**
-     * Handles the requesting of the camera permission.  This includes
-     * showing a "Snackbar" message of why the permission is needed then
-     * sending the request.
-     */
-    private void requestCameraPermission() {
-        Log.w(TAG, "Camera permission is not granted. Requesting permission");
-
-        final String[] permissions = new String[]{Manifest.permission.CAMERA};
-
-        if (!ActivityCompat.shouldShowRequestPermissionRationale(this,
-                Manifest.permission.CAMERA)) {
-            ActivityCompat.requestPermissions(this, permissions, RC_HANDLE_CAMERA_PERM);
-            return;
-        }
-
-        final Activity thisActivity = this;
-
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ActivityCompat.requestPermissions(thisActivity, permissions,
-                        RC_HANDLE_CAMERA_PERM);
-            }
-        };
-
-        Snackbar.make(graphicOverlay, R.string.permission_camera_rationale,
-                Snackbar.LENGTH_INDEFINITE)
-                .setAction(R.string.ok, listener)
-                .show();
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent e) {
-        return super.onTouchEvent(e);
-    }
-
-    /**
-     * Creates and starts the camera.  Note that this uses a higher resolution in comparison
-     * to other detection examples to enable the ocr detector to detect small text samples
-     * at long distances.
-     * <p>
-     * Suppressing InlinedApi since there is a check that the minimum version is met before using
-     * the constant.
-     */
     @SuppressLint("InlinedApi")
     private void initCameraSource() {
         if (!this.frameProcessor.isOperational()) {
@@ -215,18 +171,12 @@ public final class OcrCaptureActivity extends AppCompatActivity {
                         .build();
     }
 
-    /**
-     * Restarts the camera.
-     */
     @Override
     protected void onResume() {
         super.onResume();
         startCameraSource();
     }
 
-    /**
-     * Stops the camera.
-     */
     @Override
     protected void onPause() {
         super.onPause();
@@ -235,10 +185,6 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Releases the resources associated with the camera source, the associated detectors, and the
-     * rest of the processing pipeline.
-     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -247,40 +193,15 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Callback for the result from requesting permissions. This method
-     * is invoked for every call on {@link #requestPermissions(String[], int)}.
-     * <p>
-     * <strong>Note:</strong> It is possible that the permissions request interaction
-     * with the user is interrupted. In this case you will receive empty permissions
-     * and results arrays which should be treated as a cancellation.
-     * </p>
-     *
-     * @param requestCode  The request code passed in {@link #requestPermissions(String[], int)}.
-     * @param permissions  The requested permissions. Never null.
-     * @param grantResults The grant results for the corresponding permissions
-     *                     which is either {@link PackageManager#PERMISSION_GRANTED}
-     *                     or {@link PackageManager#PERMISSION_DENIED}. Never null.
-     * @see #requestPermissions(String[], int)
-     */
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        if (requestCode != RC_HANDLE_CAMERA_PERM) {
-            Log.d(TAG, "Got unexpected permission result: " + requestCode);
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-            return;
-        }
 
-        if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Log.d(TAG, "Camera permission granted - initialize the camera source");
+    	if(permissionValidator.onPermissionRequestResult(requestCode, permissions, grantResults)) {
             this.initCameraSource();
             return;
         }
-
-        Log.e(TAG, "Permission not granted: results len = " + grantResults.length +
-                " Result code = " + (grantResults.length > 0 ? grantResults[0] : "(empty)"));
 
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -289,17 +210,11 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Multitracker sample")
-                .setMessage(R.string.no_camera_permission)
+        builder.setMessage(R.string.no_permissions)
                 .setPositiveButton(R.string.ok, listener)
                 .show();
     }
 
-    /**
-     * Starts or restarts the camera source, if it exists.  If the camera source doesn't exist yet
-     * (e.g., because onResume was called before the camera source was created), this will be called
-     * again when the camera source is created.
-     */
     private void startCameraSource() throws SecurityException {
         // check that the device has play services available.
         int code = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(
@@ -362,7 +277,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
 		}
 
 		return String.format(
-				"%s %f => %s %f"
+				"%s %.2f => %s %.2f"
 			,   sourceCurrency.toStringISO()
 			,   price
 			,   targetCurrency.toStringISO()
