@@ -26,7 +26,8 @@
             android:clickable="false"
             android:paddingTop="130dp"
             android:paddingBottom="130dp"
-            app:srcCompat="@drawable/camera_canvas_2" />
+            app:srcCompat="@drawable/camera_canvas_2"
+            android:contentDescription="@string/price_is_being_detected" />
 
         <ImageView
             android:id="@+id/cameraCanvas1"
@@ -36,7 +37,8 @@
             android:clickable="false"
             android:paddingTop="130dp"
             android:paddingBottom="130dp"
-            app:srcCompat="@drawable/camera_canvas_1" />
+            app:srcCompat="@drawable/camera_canvas_1"
+            android:contentDescription="@string/price_isn_t_being_detected" />
 
     </activity.camera.CameraSourcePreview>
 

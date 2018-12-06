@@ -1,5 +1,6 @@
 package currencyConverter.service;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,13 +18,13 @@ import currencyConverter.converter.ICurrencyRateConverter;
 import currencyConverter.dto.CurrencyRateDTO;
 import currencyConverter.exception.CurrencyRateFetchingException;
 import currencyConverter.codes.CurrencyCode;
-import currencyConverter.exception.NoInternetException;
 import currencyConverter.model.Currency;
 import currencyConverter.model.CurrencyRate;
 import currencyConverter.repository.CurrencyFileBasedRepository;
 import currencyConverter.repository.ICurrencyRateModelRepository;
 
 class CurrencyRatesProvider implements ICurrencyRatesProvider {
+    @SuppressLint("SimpleDateFormat")
     private static final SimpleDateFormat DATE_PATTERN = new SimpleDateFormat("dd.MM.yyyy");
     private static final String API_PATTERN = "https://api.privatbank.ua/p24api/exchange_rates?json&date=%s";
     private static final Integer SAVED_RATES_TTL_DAYS = 3;

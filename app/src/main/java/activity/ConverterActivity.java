@@ -46,6 +46,7 @@ import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import currencyConverter.codes.CurrencyCode;
 import currencyConverter.exception.CurrencyRateFetchingException;
@@ -86,13 +87,13 @@ public final class ConverterActivity extends AppCompatActivity {
 
         setContentView(R.layout.act_main);
 
-        preview = (CameraSourcePreview) findViewById(R.id.preview);
-        graphicOverlay = (GraphicOverlay) findViewById(R.id.graphicOverlay);
-        layoutButtons = (LinearLayout) findViewById(R.id.layoutButtons);
-		editboxPrice = (EditText) findViewById(R.id.editboxPrice);
+        preview = findViewById(R.id.preview);
+        graphicOverlay = findViewById(R.id.graphicOverlay);
+        layoutButtons = findViewById(R.id.layoutButtons);
+		editboxPrice = findViewById(R.id.editboxPrice);
 
-        final TextView textViewResult = (TextView) findViewById(R.id.textViewResult);
-        final ImageView cameraUnCaptureView = (ImageView) findViewById(R.id.cameraCanvas1);
+        final TextView textViewResult = findViewById(R.id.textViewResult);
+        final ImageView cameraUnCaptureView = findViewById(R.id.cameraCanvas1);
         this.frameProcessor = new FrameProcessor(this.getApplicationContext());
 
         NumberDetector numberDetector = new NumberDetector();
@@ -140,7 +141,7 @@ public final class ConverterActivity extends AppCompatActivity {
 		    initCameraSource();
 	    }
 
-        final Button button = (Button) findViewById(R.id.buttonConvert);
+        final Button button = findViewById(R.id.buttonConvert);
         button.setOnClickListener(new CameraButtonListener(
                 (IFrameProcessor) this.frameProcessor, cameraUnCaptureView, textViewResult));
 
@@ -268,7 +269,7 @@ public final class ConverterActivity extends AppCompatActivity {
 
 		ICurrencyConverter converter = ServiceFactory.createCurrencyConverter();
 
-		double convertedPrice = 0.0;
+		double convertedPrice;
 		try {
 			convertedPrice = converter.convert(sourceCurrency, targetCurrency, price);
 		} catch (CurrencyRateFetchingException e) {
@@ -278,7 +279,8 @@ public final class ConverterActivity extends AppCompatActivity {
 		}
 
 		return String.format(
-				"%s %.2f => %s %.2f"
+				Locale.ENGLISH
+			,	"%s %.2f => %s %.2f"
 			,   sourceCurrency.toStringISO()
 			,   price
 			,   targetCurrency.toStringISO()
