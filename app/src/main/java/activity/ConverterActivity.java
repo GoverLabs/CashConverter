@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.android.gms.samples.vision.ocrreader;
+package activity;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -37,8 +37,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.samples.vision.ocrreader.ui.camera.CameraSourcePreview;
-import com.google.android.gms.samples.vision.ocrreader.ui.camera.GraphicOverlay;
+import activity.camera.CameraSourcePreview;
+import activity.camera.GraphicOverlay;
+
+import com.goverlabs.converter.R;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
@@ -47,7 +49,6 @@ import java.io.IOException;
 
 import currencyConverter.codes.CurrencyCode;
 import currencyConverter.exception.CurrencyRateFetchingException;
-import activity.ContextSingleton;
 import currencyConverter.service.ICurrencyConverter;
 import currencyConverter.service.ServiceFactory;
 import frameProcessor.detector.NumberDetector;
@@ -60,7 +61,7 @@ import userData.repository.IUserDataRepository;
 import userData.repository.UserDataRepository;
 
 public final class OcrCaptureActivity extends AppCompatActivity {
-    private static final String TAG = "OcrCaptureActivity";
+    private static final String TAG = "PriceConverter";
 
     // Intent request code to handle updating play services if needed.
     private static final int RC_HANDLE_GMS = 9001;
