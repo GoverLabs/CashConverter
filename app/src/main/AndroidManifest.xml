@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.google.android.gms.samples.vision.ocrreader"
+    package="com.goverlabs.converter"
     android:installLocation="auto">
 
     <uses-feature android:name="android.hardware.camera" />
@@ -26,15 +26,15 @@
             android:value="ocr" />
 
         <activity
-            android:name=".OcrCaptureActivity"
-            android:label="Cash Converter">
+            android:name="activity.ConverterActivity"
+            android:label="Price Converter">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PreferencesActivity"
+        <activity android:name="activity.PreferencesActivity"
             android:label="Preferences">
         </activity>
     </application>

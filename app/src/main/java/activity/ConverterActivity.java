@@ -60,7 +60,7 @@ import userData.UserData;
 import userData.repository.IUserDataRepository;
 import userData.repository.UserDataRepository;
 
-public final class OcrCaptureActivity extends AppCompatActivity {
+public final class ConverterActivity extends AppCompatActivity {
     private static final String TAG = "PriceConverter";
 
     // Intent request code to handle updating play services if needed.
