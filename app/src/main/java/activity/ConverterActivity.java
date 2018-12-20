@@ -16,6 +16,7 @@
 package activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -101,13 +102,14 @@ public final class ConverterActivity extends AppCompatActivity {
 
             @Override
             public void onEvent(final double result) {
-                textViewResult.post(new Runnable() {
-                    public void run() {
-                        textViewResult.setText(convertDetectedPrice(result));
-                        ((IFrameProcessor) frameProcessor).setAvailability(false);
-                        cameraUnCaptureView.setVisibility(View.VISIBLE);
-                    }
-                });
+
+				runOnUiThread(new Runnable() {
+					public void run() {
+						textViewResult.setText(convertDetectedPrice(result));
+						((IFrameProcessor) frameProcessor).setAvailability(false);
+						cameraUnCaptureView.setVisibility(View.VISIBLE);
+					}
+				});
             }
         });
         this.frameProcessor.setProcessor(numberDetector);
@@ -273,7 +275,19 @@ public final class ConverterActivity extends AppCompatActivity {
 		try {
 			convertedPrice = converter.convert(sourceCurrency, targetCurrency, price);
 		} catch (CurrencyRateFetchingException e) {
-		    // TODO add error message
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle(getString(R.string.error))
+					.setMessage(getString(R.string.error_msg))
+					.setCancelable(false)
+					.setNegativeButton("OK",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							dialog.cancel();
+						}
+					});
+			AlertDialog alert = builder.create();
+			alert.show();
 
 			return "";
 		}

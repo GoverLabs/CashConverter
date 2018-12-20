@@ -17,4 +17,6 @@
     <string name="you_currency_is">You currency is</string>
     <string name="price_isn_t_being_detected">Price isn\'t being detected</string>
     <string name="price_is_being_detected">Price is being detected</string>
+    <string name="error">Error</string>
+    <string name="error_msg">Something bad has happened. Try again.</string>
 </resources>

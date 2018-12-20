@@ -17,4 +17,6 @@
     <string name="you_currency_is">Ваша поточна валюта</string>
     <string name="price_isn_t_being_detected">Ціна зараз не розпізнається</string>
     <string name="price_is_being_detected">Ціна зараз розпізнається</string>
+    <string name="error">Помилка</string>
+    <string name="error_msg">Трапилось щось погане. Спробуйте ще.</string>
 </resources>

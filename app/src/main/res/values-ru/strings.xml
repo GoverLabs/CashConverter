@@ -17,4 +17,6 @@
     <string name="you_currency_is">Ваша текущая валюта</string>
     <string name="price_isn_t_being_detected">Цена сейчас не распознаётся</string>
     <string name="price_is_being_detected">Цена сейчас распознаётся</string>
+    <string name="error">Ошибка</string>
+    <string name="error_msg">Что-то плохое произошло. Попробуйте ещё.</string>
 </resources>
