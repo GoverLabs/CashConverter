@@ -1,5 +1,7 @@
 package currencyConverter.codes;
 
+import java.util.Locale;
+
 public enum CurrencyCode {
 
 	Undefined("NULL"),
@@ -56,7 +58,7 @@ public enum CurrencyCode {
 		CurrencyCode code = CurrencyCode.Undefined;
 
 		try {
-			code = CurrencyCode.valueOf(stringISO.toUpperCase());
+			code = CurrencyCode.valueOf(stringISO.toUpperCase(Locale.ENGLISH));
 		} catch (IllegalArgumentException e) {
 			// Ignore unsupported codes
 		}

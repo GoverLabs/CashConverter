@@ -1,4 +1,4 @@
-package com.google.android.gms.samples.vision.ocrreader;
+package activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
+
+import com.goverlabs.converter.R;
 
 import java.util.Comparator;
 

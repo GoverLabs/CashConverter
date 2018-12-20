@@ -47,7 +47,7 @@ public class CountryRepository implements ICountryRepository {
 
 		CountryModel model = null;
 
-		File file = new File(FILE_NAME);
+		File file = new File(ContextSingleton.getInstance().getContext().getFilesDir(), FILE_NAME);
 		if (file.exists()) {
 
 			try {
@@ -62,7 +62,7 @@ public class CountryRepository implements ICountryRepository {
 
 	@Override
 	public void clear() {
-		File file = new File(FILE_NAME);
+		File file = new File(ContextSingleton.getInstance().getContext().getFilesDir(), FILE_NAME);
 
 		if (file.exists()) {
 			file.delete();

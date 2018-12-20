@@ -49,7 +49,7 @@ public class UserDataRepository implements IUserDataRepository {
 
 		UserData model = null;
 
-		File file = new File(FILE_NAME);
+		File file = new File(ContextSingleton.getInstance().getContext().getFilesDir(), FILE_NAME);
 
 		FileInputStream fin = null;
 		ObjectInputStream ois = null;
@@ -76,7 +76,7 @@ public class UserDataRepository implements IUserDataRepository {
 
 	@Override
 	public void clear() {
-		File file = new File(FILE_NAME);
+		File file = new File(ContextSingleton.getInstance().getContext().getFilesDir(), FILE_NAME);
 
 		if (file.exists()) {
 			file.delete();
