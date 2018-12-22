@@ -14,7 +14,7 @@
         android:allowBackup="true"
         android:fullBackupContent="false"
         android:hardwareAccelerated="true"
-        android:icon="@drawable/wallet_icon"
+        android:icon="@drawable/icon"
         android:label="Price Converter"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat">

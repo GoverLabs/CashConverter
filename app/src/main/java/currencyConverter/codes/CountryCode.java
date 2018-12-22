@@ -59,9 +59,28 @@ public enum CountryCode {
 
 	TR("TR", CurrencyCode.TRY),
 
-	// TODO add EUR
+	AD("AD", CurrencyCode.EUR),
+	AT("AT", CurrencyCode.EUR),
+	BE("BE", CurrencyCode.EUR),
+	CY("CY", CurrencyCode.EUR),
+	DE("DE", CurrencyCode.EUR),
+	EE("EE", CurrencyCode.EUR),
+	ES("ES", CurrencyCode.EUR),
+	FI("FI", CurrencyCode.EUR),
+	FR("FR", CurrencyCode.EUR),
+	GR("GR", CurrencyCode.EUR),
+	IE("IE", CurrencyCode.EUR),
 	IT("IT", CurrencyCode.EUR),
-
+	LU("LU", CurrencyCode.EUR),
+	LV("LV", CurrencyCode.EUR),
+	MC("MC", CurrencyCode.EUR),
+	ME("ME", CurrencyCode.EUR),
+	MQ("MQ", CurrencyCode.EUR),
+	MT("MT", CurrencyCode.EUR),
+	PT("PT", CurrencyCode.EUR),
+	SI("SI", CurrencyCode.EUR),
+	SK("SK", CurrencyCode.EUR),
+	VA("VA", CurrencyCode.EUR),
 	GE("GE", CurrencyCode.GEL),
 
 	PL("PL", CurrencyCode.PLN)
