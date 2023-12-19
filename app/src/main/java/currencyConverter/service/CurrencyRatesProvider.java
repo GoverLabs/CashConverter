@@ -26,7 +26,7 @@ import currencyConverter.repository.ICurrencyRateModelRepository;
 class CurrencyRatesProvider implements ICurrencyRatesProvider {
     @SuppressLint("SimpleDateFormat")
     private static final SimpleDateFormat DATE_PATTERN = new SimpleDateFormat("dd.MM.yyyy");
-    private static final String API_PATTERN = "https://api.privatbank.ua/p24api/exchange_rates?json&date=%s";
+    private static final String API_PATTERN = "https://funclogicniksmirnovlab2.azurewebsites.net/api/GetSettingInfo";
     private static final Integer SAVED_RATES_TTL_DAYS = 3;
 
     private final Map<CurrencyCode, Currency> exchangeRateMap;
@@ -70,10 +70,7 @@ class CurrencyRatesProvider implements ICurrencyRatesProvider {
     }
 
     private boolean isActual(CurrencyRate currencyRate) {
-        Date lastUpdateDate = new Date(currencyRate.getDate());
-        Calendar ttlCalendar = Calendar.getInstance();
-        ttlCalendar.add(Calendar.DAY_OF_YEAR, -SAVED_RATES_TTL_DAYS);
-        return lastUpdateDate.after(ttlCalendar.getTime());
+        return false;
     }
 
     private CurrencyRate fetchLatestAvailableRates() throws CurrencyRateFetchingException {
